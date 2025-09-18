@@ -16,7 +16,7 @@
 - [X] Crear la carpeta scripts
 - [X] Crear fichero package.json
 - [X] Crer el fichero .gitingone
-- [] He realizado conexion con GitHub de este proyecto
+- [X] He realizado conexion con GitHub de este proyecto
 
 
 ## Scripts de validacion
