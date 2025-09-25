@@ -1,7 +1,8 @@
 # Tarea CURL
-- Crear un documento que ejemplifique todas las posibles opciones del comando CURL
-- Usar alguna web fake rest api para probar las posibles funcionalidades del comando CURL
-- Crear/Scripts/test.sh que lance todas los posibles test del comando curl para realizar GET,POST,DELETE,PUT,PATCH.
+
+* Crear un documento que ejemplifique todas las posibles opciones del comando CURL
+* Usar alguna web fake rest api para probar las posibles funcionalidades del comando CURL
+* Crear/Scripts/test.sh que lance todas los posibles test del comando curl para realizar GET,POST,DELETE,PUT,PATCH.
 
 # cURL — guía simplificada
 
@@ -87,7 +88,9 @@ curl -i -L -H "Accept: application/json" https://jsonplaceholder.typicode.com/po
 POST JSON:
 
 ```bash
-curl -X POST -H "Content-Type: application/json"   -d '{"title":"foo","body":"bar","userId":1}'   https://jsonplaceholder.typicode.com/posts
+curl -X POST -H "Content-Type: application/json" \
+  -d '{"title":"foo","body":"bar","userId":1}' \
+  https://jsonplaceholder.typicode.com/posts
 ```
 
 Subir archivo:
@@ -123,6 +126,74 @@ curl -o salida.json https://jsonplaceholder.typicode.com/posts
 * `-v` verbose
 * `-L` seguir redirecciones
 * `-k` ignorar SSL
+
+---
+
+# Métodos HTTP con cURL
+
+## 1. GET — Leer información
+
+El método **GET** se usa para **leer información** del servidor sin modificar nada.
+
+```bash
+curl -X GET https://jsonplaceholder.typicode.com/posts/1
+```
+
+![Imagen 1](img/get.png)
+
+---
+
+## 2. POST — Crear un recurso nuevo
+
+El método **POST** se usa para **crear un recurso nuevo** en el servidor.
+
+```bash
+curl -X POST -H "Content-Type: application/json" \
+  -d '{"title":"Mi nuevo post","body":"Este es el contenido del post","userId":1}' \
+  https://jsonplaceholder.typicode.com/posts
+```
+
+![Imagen 2](img/post.png)
+
+---
+
+## 3. DELETE — Borrar un recurso
+
+El método **DELETE** se usa para **eliminar un recurso** del servidor.
+
+```bash
+curl -X DELETE https://jsonplaceholder.typicode.com/posts/1
+```
+
+![Imagen 3](img/delete.png)
+
+---
+
+## 4. PUT — Reemplazar un recurso completo
+
+El método **PUT** se usa para **reemplazar un recurso completo**. Actualiza todos los campos del recurso aunque solo cambies uno.
+
+```bash
+curl -X PUT -H "Content-Type: application/json" \
+  -d '{"id":1,"title":"Nuevo título","body":"Nuevo contenido","userId":1}' \
+  https://jsonplaceholder.typicode.com/posts/1
+```
+
+![Imagen 4](img/put.png)
+
+---
+
+## 5. PATCH — Actualizar parcialmente un recurso
+
+El método **PATCH** se usa para **actualizar solo una parte** de un recurso sin reemplazarlo completamente.
+
+```bash
+curl -X PATCH -H "Content-Type: application/json" \
+  -d '{"title":"Título editado"}' \
+  https://jsonplaceholder.typicode.com/posts/1
+```
+
+![Imagen 5](img/patch.png)
 
 ---
 
