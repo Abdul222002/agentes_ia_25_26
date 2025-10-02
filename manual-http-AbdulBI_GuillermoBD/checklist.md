@@ -15,7 +15,7 @@
 - [x] Crear `.env.example`(Guille)
 - [x] Configurar `.gitignore` (node_modules, .env, logs, SO files, carpetas de editores)(Abdul)
 
-## Parte 2: Script CRUD con JavaScript
+## Parte 2: Script CRUD con JavaScript (Guille)
 
 - [ ] `src/crud-curl.js`: importar `dotenv` y cargar variables de entorno
 - [ ] Implementar funciones CRUD:
@@ -28,13 +28,13 @@
 - [ ] Ejecutar todas las funciones al final del script
 - [ ] Mensajes informativos al inicio y final
 
-## Parte 3: Documentación CRUD con cUR
+## Parte 3: Documentación CRUD con Curl 
 
 - [ ] Documentar cada operación CRUD en `README.md`
 - [ ] Explicar flags, headers, método HTTP y código de estado
 - [ ] Capturar respuestas reales al ejecutar los comandos
 
-## Parte 4: Thunder Client
+## Parte 4: Thunder Client (Abdul)
 
 - [ ] Crear colección `CRUD Students API`
 - [ ] Configurar entorno de variables: `baseUrl`, `port`, `fullUrl`
@@ -42,27 +42,25 @@
 - [ ] Capturas de pantalla de cada petición en `images/`
 - [ ] Documentar uso en README con capturas
 
-## Parte 5: REST Client
+## Parte 5: REST Client (Abdul)
 
 - [ ] Crear archivo `peticiones-crud.http`
 - [ ] Definir variables: `@baseUrl`, `@port`, `@apiUrl`
 - [ ] Implementar todas las operaciones CRUD, separar con `###`, añadir comentarios
 - [ ] Probar todas las peticiones desde VS Code
 
-## Parte 6: Script de validaciónç
+## Parte 6: Script de validación (Guille)
 
-- [ ] `scripts/validate.sh`:
+- [ ] `scripts/validate.sh`: 
   - [ ] Validar existencia de archivos y carpetas esenciales
   - [ ] Verificar `package.json` (type, dependencias, scripts)
   - [ ] Verificar capturas en `images/`
   - [ ] Mostrar mensaje final de validación
 
-## Parte 7: Git y GitHub
+## Parte 7: Git y GitHub (Abdul)
 
-- [ ] Crear repositorio en GitHub y añadir profesor
-- [ ] Inicializar Git local, conectar remoto, crear rama `main` y subir código inicial
-- [ ] Crear rama `m1/http-request-response` y trabajar en ella
-- [ ] Realizar commits incrementales con mensajes descriptivos
-- [ ] Subir rama y crear Pull Request hacia `main`
-- [ ] Después de aprobación: actualizar `main`, crear tag y subir al remoto
+- [x] Crear repositorio en GitHub y añadir profesor
+- [x] Inicializar Git local, conectar remoto, crear rama `main` y subir código inicial
+- [x] Crear rama `m1/http-request-response` y trabajar en ella
+- [x] Realizar commits incrementales con mensajes descriptivos
   
