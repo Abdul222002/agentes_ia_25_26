@@ -2,18 +2,18 @@
 
 ## Parte 1: Configuración inicial del proyecto
 
-- [ ] Crear carpeta del proyecto `manual-http-[iniciales-apellidos]`
-- [ ] Inicializar proyecto Node.js (`npm init`) con nombre, versión, descripción y autor
-- [ ] Instalar dependencias: `json-server`, `dotenv`
-- [ ] Configurar `package.json`:
-  - [ ] `"type": "module"`
-  - [ ] Script `server:up` para levantar json-server
+- [x] Crear carpeta del proyecto `manual-http-[iniciales-apellidos]` (Abdul)
+- [x] Inicializar proyecto Node.js (`npm init`) con nombre, versión, descripción y autor (Guillermo)
+- [x] Instalar dependencias: `json-server`, `dotenv`(Abdul)
+- [] Configurar `package.json`: (Guille)
+  - [x] `"type": "module"`
+  - [x] Script `server:up` para levantar json-server 
   - [ ] Script `crud:curl` para ejecutar `src/crud-curl.js`
   - [ ] Script `validate` para ejecutar `scripts/validate.sh`
-- [ ] Crear estructura de carpetas y archivos según requisitos
-- [ ] Configurar `.env` con variables `PORT`, `API_BASE_URL`, `NODE_ENV`
-- [ ] Crear `.env.example`
-- [ ] Configurar `.gitignore` (node_modules, .env, logs, SO files, carpetas de editores)
+- [x] Crear estructura de carpetas y archivos según requisitos (Abdul)
+- [x] Configurar `.env` con variables `PORT`, `API_BASE_URL`, `NODE_ENV`(Guille)
+- [x] Crear `.env.example`(Guille)
+- [x] Configurar `.gitignore` (node_modules, .env, logs, SO files, carpetas de editores)(Abdul)
 
 ## Parte 2: Script CRUD con JavaScript
 
