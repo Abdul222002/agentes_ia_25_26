@@ -3,6 +3,7 @@
 Este proyecto demuestra el uso de **Thunder Client** y **cURL** para realizar un CRUD básico contra una API REST simulada con **JSON Server**.  
 
 La base de datos está en `db.json`, con dos recursos principales:
+
 - `/books`
 - `/authors`
 
@@ -11,12 +12,14 @@ La base de datos está en `db.json`, con dos recursos principales:
 # Checklist CRUD API
 
 ## Preparación
+
 - [X] Tener `db.json` con `books` y `authors`
 - [X] Instalar JSON Server: `npm install -g json-server`
 - [X] Levantar API: `json-server --watch db.json --port 3000`
 - [X] Instalar Thunder Client en VS Code
 
 ## Thunder Client
+
 - [X] POST /books → Crear un libro
 - [X] GET /books/:id → Leer el libro creado
 - [X] PUT /books/:id → Actualizar libro completo
@@ -24,12 +27,15 @@ La base de datos está en `db.json`, con dos recursos principales:
 - [X] DELETE /books/:id → Borrar libro
 
 ## Script cURL
+
 - [X] Crear `peticiones_http.sh` con los 5 comandos
 - [X] Dar permisos: `chmod +x peticiones_http.sh`
 - [X] Ejecutar: `./peticiones_http.sh` o `npm run peticiones-http`
 
 ## Package.json
+
 - [X] Agregar script:
+
 ```json
 {
   "scripts": {
@@ -38,11 +44,10 @@ La base de datos está en `db.json`, con dos recursos principales:
 }
 ```
 
-# Proyecto API CRUD con JSON Server
-
 Este proyecto demuestra el uso de **Thunder Client** y **cURL** para realizar un CRUD básico contra una API REST simulada con **JSON Server**.  
 
 La base de datos está en `db.json`, con dos recursos principales:
+
 - `/books`
 - `/authors`
 
@@ -51,6 +56,7 @@ La base de datos está en `db.json`, con dos recursos principales:
 ## 🚀 Ejercicio 1: Thunder Client
 
 En **Thunder Client** se han creado peticiones para los dos recursos:
+
 - `POST /books` → Crea un libro
     ![Imagen 1](img/post.png)
 - `GET /books/:id` → Lee un libro
@@ -78,4 +84,5 @@ Se creó el script **`peticiones_http.sh`** con 5 comandos que demuestran el flu
 1. Asegúrate de tener **JSON Server** corriendo:
 
 ```bash
+
 json-server --watch db.json --port 3000
