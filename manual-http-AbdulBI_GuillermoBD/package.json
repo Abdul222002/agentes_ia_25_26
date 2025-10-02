@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server:up":"json-server --watch /src/db/db.json"
+    "server:up":"json-server --watch /src/db/db.json",
+    "crud:curl":"node src/crud-curl.js",
+    "validate":"bash scripts/validate.sh"
   },
   "keywords": [],
   "author": "Abdul BI, Guillermo BD",

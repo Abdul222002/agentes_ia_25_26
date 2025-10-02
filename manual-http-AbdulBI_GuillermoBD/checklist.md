@@ -5,11 +5,11 @@
 - [x] Crear carpeta del proyecto `manual-http-[iniciales-apellidos]` (Abdul)
 - [x] Inicializar proyecto Node.js (`npm init`) con nombre, versión, descripción y autor (Guillermo)
 - [x] Instalar dependencias: `json-server`, `dotenv`(Abdul)
-- [] Configurar `package.json`: (Guille)
+- [x] Configurar `package.json`: (Guille)
   - [x] `"type": "module"`
   - [x] Script `server:up` para levantar json-server 
-  - [ ] Script `crud:curl` para ejecutar `src/crud-curl.js`
-  - [ ] Script `validate` para ejecutar `scripts/validate.sh`
+  - [x] Script `crud:curl` para ejecutar `src/crud-curl.js`
+  - [x] Script `validate` para ejecutar `scripts/validate.sh`
 - [x] Crear estructura de carpetas y archivos según requisitos (Abdul)
 - [x] Configurar `.env` con variables `PORT`, `API_BASE_URL`, `NODE_ENV`(Guille)
 - [x] Crear `.env.example`(Guille)
