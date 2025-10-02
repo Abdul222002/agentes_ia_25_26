@@ -1,7 +1,7 @@
 {
   "books": [
     {
-      "id": 1,
+      "id": "1",
       "title": "Clean Code",
       "authorId": 1,
       "language": "English",
@@ -10,7 +10,7 @@
       "pages": 464
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "The Pragmatic Programmer",
       "authorId": 2,
       "language": "English",
@@ -19,7 +19,7 @@
       "pages": 352
     },
     {
-      "id": 3,
+      "id": "3",
       "title": "Eloquent JavaScript",
       "authorId": 3,
       "language": "English",
@@ -28,7 +28,7 @@
       "pages": 472
     },
     {
-      "id": 4,
+      "id": "4",
       "title": "You Don't Know JS Yet",
       "authorId": 4,
       "language": "English",
@@ -37,7 +37,7 @@
       "pages": 278
     },
     {
-      "id": 5,
+      "id": "5",
       "title": "Introduction to Algorithms",
       "authorId": 5,
       "language": "English",
@@ -46,7 +46,7 @@
       "pages": 1312
     },
     {
-      "id": 6,
+      "id": "6",
       "title": "Python Crash Course",
       "authorId": 6,
       "language": "English",
@@ -55,7 +55,7 @@
       "pages": 544
     },
     {
-      "id": 7,
+      "id": "7",
       "title": "JavaScript: The Good Parts",
       "authorId": 7,
       "language": "English",
@@ -64,7 +64,7 @@
       "pages": 176
     },
     {
-      "id": 8,
+      "id": "8",
       "title": "Design Patterns",
       "authorId": 8,
       "language": "English",
@@ -73,34 +73,87 @@
       "pages": 395
     },
     {
-      "id": 9,
-      "title": "Effective Java",
-      "authorId": 9,
-      "language": "English",
-      "year": 2018,
-      "genre": "Java",
-      "pages": 416
-    },
-    {
-      "id": 10,
+      "id": "10",
       "title": "Head First Design Patterns",
       "authorId": 10,
       "language": "English",
       "year": 2004,
       "genre": "Software Engineering",
       "pages": 694
+    },
+    {
+      "id": "4fb7",
+      "title": "Refactoring",
+      "authorId": 1,
+      "language": "English",
+      "year": 1999,
+      "genre": "Software Engineering",
+      "pages": 431
+    },
+    {
+      "id": "1716",
+      "title": "Refactoring",
+      "authorId": 1,
+      "language": "English",
+      "year": 1999,
+      "genre": "Software Engineering",
+      "pages": 431
     }
   ],
   "authors": [
-    { "id": 1, "name": "Robert C. Martin", "birthYear": 1952, "nationality": "American" },
-    { "id": 2, "name": "Andrew Hunt & David Thomas", "birthYear": 1964, "nationality": "American" },
-    { "id": 3, "name": "Marijn Haverbeke", "birthYear": 1980, "nationality": "Dutch" },
-    { "id": 4, "name": "Kyle Simpson", "birthYear": 1970, "nationality": "American" },
-    { "id": 5, "name": "Thomas H. Cormen", "birthYear": 1956, "nationality": "American" },
-    { "id": 6, "name": "Eric Matthes", "birthYear": 1985, "nationality": "American" },
-    { "id": 7, "name": "Douglas Crockford", "birthYear": 1955, "nationality": "American" },
-    { "id": 8, "name": "Erich Gamma", "birthYear": 1961, "nationality": "Swiss" },
-    { "id": 9, "name": "Joshua Bloch", "birthYear": 1961, "nationality": "American" },
-    { "id": 10, "name": "Eric Freeman", "birthYear": 1965, "nationality": "American" }
+    {
+      "id": "1",
+      "name": "Robert C. Martin",
+      "birthYear": 1952,
+      "nationality": "American"
+    },
+    {
+      "id": "3",
+      "name": "Marijn Haverbeke",
+      "birthYear": 1980,
+      "nationality": "European"
+    },
+    {
+      "id": "4",
+      "name": "Kyle Simpson",
+      "birthYear": 1970,
+      "nationality": "American"
+    },
+    {
+      "id": "5",
+      "name": "Thomas H. Cormen",
+      "birthYear": 1956,
+      "nationality": "American"
+    },
+    {
+      "id": "6",
+      "name": "Eric Matthes",
+      "birthYear": 1985,
+      "nationality": "American"
+    },
+    {
+      "id": "7",
+      "name": "Douglas Crockford",
+      "birthYear": 1955,
+      "nationality": "American"
+    },
+    {
+      "id": "8",
+      "name": "Erich Gamma",
+      "birthYear": 1961,
+      "nationality": "Swiss"
+    },
+    {
+      "id": "9",
+      "name": "Joshua Bloch",
+      "birthYear": 1961,
+      "nationality": "American"
+    },
+    {
+      "id": "10",
+      "name": "Eric Freeman",
+      "birthYear": 1965,
+      "nationality": "American"
+    }
   ]
 }
