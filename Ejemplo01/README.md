@@ -9,7 +9,7 @@ La base de datos está en `db.json`, con dos recursos principales:
 
 ---
 
-# Checklist CRUD API
+# Checklist CRUD APIç
 
 ## Preparación
 
