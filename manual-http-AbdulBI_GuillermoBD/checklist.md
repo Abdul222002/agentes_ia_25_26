@@ -17,14 +17,14 @@
 
 ## Parte 2: Script CRUD con JavaScript (Guille)
 
-- [ ] `src/crud-curl.js`: importar `dotenv` y cargar variables de entorno
+- [x] `src/crud-curl.js`: importar `dotenv` y cargar variables de entorno
 - [ ] Implementar funciones CRUD:
-  - [ ] `createStudent(studentData)`
-  - [ ] `readAllStudents()`
-  - [ ] `readStudentById(id)`
-  - [ ] `updateStudent(id, studentData)`
-  - [ ] `patchStudent(id, partialData)`
-  - [ ] `deleteStudent(id)`
+  - [x] `createStudent(studentData)`
+  - [x] `readAllStudents()`
+  - [x] `readStudentById(id)`
+  - [x] `updateStudent(id, studentData)`
+  - [x] `patchStudent(id, partialData)`
+  - [x] `deleteStudent(id)`
 - [ ] Ejecutar todas las funciones al final del script
 - [ ] Mensajes informativos al inicio y final
 
@@ -38,9 +38,9 @@
 
 - [ ] Crear colección `CRUD Students API`
 - [ ] Configurar entorno de variables: `baseUrl`, `port`, `fullUrl`
-- [ ] Crear peticiones: POST, GET (all y by ID), PUT, PATCH, DELETE
-- [ ] Capturas de pantalla de cada petición en `images/`
-- [ ] Documentar uso en README con capturas
+- [x] Crear peticiones: POST, GET (all y by ID), PUT, PATCH, DELETE
+- [x] Capturas de pantalla de cada petición en `images/`
+- [x] Documentar uso en README con capturas
 
 ## Parte 5: REST Client (Abdul)
 
