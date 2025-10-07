@@ -51,11 +51,11 @@
 
 ## Parte 6: Script de validación (Guille)
 
-- [ ] `scripts/validate.sh`: 
-  - [ ] Validar existencia de archivos y carpetas esenciales
-  - [ ] Verificar `package.json` (type, dependencias, scripts)
-  - [ ] Verificar capturas en `images/`
-  - [ ] Mostrar mensaje final de validación
+- [x] `scripts/validate.sh`: 
+  - [x] Validar existencia de archivos y carpetas esenciales
+  - [x] Verificar `package.json` (type, dependencias, scripts)
+  - [x] Verificar capturas en `images/`
+  - [x] Mostrar mensaje final de validación
 
 ## Parte 7: Git y GitHub (Abdul)
 
