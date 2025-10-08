@@ -68,7 +68,7 @@ else
     respuesta+="\nEl directorio scripts no existe."
 fi
 
-if [[  -f "./images/create_student_headers.png" && -f "./images/create_student.png" && -f "./images/deleteEnrollments.png" &&  -f "./images/getAllStudents.png" &&  -f "./images/getStudentById.png" &&  -f "./images/patchStudent.png" ]]; then
+if [[  -f "./images/thunderClient/create_student_headers.png" && -f "./images/thunderClient/create_student.png" && -f "./images/thunderClient/deleteEnrollments.png" &&  -f "./images/thunderClient/getAllStudents.png" &&  -f "./images/thunderClient/getStudentById.png" &&  -f "./images/thunderClient/patchStudent.png" ]]; then
     respuesta+="\nExisten almenos 6 capturas de pantalla de Thunder Client."
 else
     respuesta+="\nNo existen almenos 6 capturas de pantalla de Thunder Client."
@@ -108,3 +108,4 @@ fi
 
 echo "Realizando validacion de archivos y carpetas"
 echo -e "$respuesta"
+
