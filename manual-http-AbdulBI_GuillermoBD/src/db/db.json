@@ -25,14 +25,6 @@
       "level": "advanced"
     },
     {
-      "id": "4",
-      "name": "David Sánchez Torres",
-      "email": "david.sanchez@email.com",
-      "enrollmentDate": "2024-09-10",
-      "active": true,
-      "level": "intermediate"
-    },
-    {
       "id": "5",
       "name": "Laura Martínez Ruiz",
       "email": "laura.martinez@email.com",
@@ -42,25 +34,41 @@
     },
     {
       "id": "6",
-      "name": "Javier López Gómez",
+      "name": "Abdul Ramirez",
       "email": "javier.lopez@email.com",
       "enrollmentDate": "2024-07-15",
       "active": true,
       "level": "advanced"
     },
     {
-      "id": "7",
-      "name": "Elena Díaz Moreno",
-      "email": "elena.diaz@email.com",
-      "enrollmentDate": "2024-09-05",
-      "active": false,
-      "level": "intermediate"
+      "name": "Guillermo Bazan",
+      "email": "guille@email.com",
+      "enrollmentDate": "2022-10-01",
+      "active": true,
+      "level": "intermediate",
+      "id": "7"
     },
     {
       "id": "ec14",
       "name": "Abdul Hakim Byaz Iglesias",
       "email": "abdul@gmail.com",
       "enrollmentDate": "2023-10-1",
+      "active": true,
+      "level": "expert"
+    },
+    {
+      "id": "11ee",
+      "name": "Abdul Hakim Byaz Iglesias",
+      "email": "abdul@gmail.com",
+      "enrollmentDate": "2023-10-01",
+      "active": true,
+      "level": "expert"
+    },
+    {
+      "id": "73ce",
+      "name": "Abdul Hakim Byaz Iglesias",
+      "email": "abdul@gmail.com",
+      "enrollmentDate": "2023-10-01",
       "active": true,
       "level": "expert"
     }

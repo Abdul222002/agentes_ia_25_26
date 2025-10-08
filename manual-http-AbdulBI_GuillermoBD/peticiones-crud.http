@@ -1,0 +1,59 @@
+@baseUrl = http://localhost
+@port = 4000
+@apiUrl = {{baseUrl}}:{{port}}/students
+@ContentType = application/json
+
+###
+# ➕ CREATE Student (POST) - Abdul
+POST {{apiUrl}}
+Content-Type: {{ContentType}}
+
+{
+  "name": "Abdul Hakim Byaz Iglesias",
+  "email": "abdul@gmail.com",
+  "enrollmentDate": "2023-10-01",
+  "active": true,
+  "level": "expert"
+}
+
+###
+# 📋 READ All Students (GET)
+GET {{apiUrl}}
+
+###
+# 🔍 READ Student by ID (GET) 
+GET {{apiUrl}}/2
+
+###
+# ✅ READ Students activos (GET)
+GET {{apiUrl}}?active=true
+
+###
+# 📊 READ Students por nivel (GET) - intermediate
+GET {{apiUrl}}?level=intermediate
+
+###
+# 🔄 UPDATE Student (PUT) - Guillermo Bazán
+PUT {{apiUrl}}/7
+Content-Type: {{ContentType}}
+
+{
+  "name": "Guillermo Bazan",
+  "email": "guille@email.com",
+  "enrollmentDate": "2022-10-01",
+  "active": true,
+  "level": "intermediate"
+}
+
+###
+# ✏ PATCH Student (PATCH) - activar a Abdul Ramirez sin cambiar el resto
+PATCH {{apiUrl}}/6
+Content-Type: {{ContentType}}
+
+{
+  "name": "Abdul Ramirez"
+}
+
+###
+# 🗑 DELETE Student (DELETE) - estudiante de prueba con id=4
+DELETE {{apiUrl}}/4
