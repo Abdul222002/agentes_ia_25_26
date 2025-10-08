@@ -1,3 +1,106 @@
+# Parte 3: Documentación CRUD con Curl
+
+## Crear estudiante (POST)
+
+- Este comando crea un nuevo usuario con los datos que se pasan como parametro a la funcion. El comando es: 
+
+```bash
+   curl -X POST -H "Content-Type: application/json" -d '{
+        "id":"8",
+        "name":"Romualdo Contreras Jerez",
+        "email":"romualdo@gmail.com",
+        "enrollmentDate":"2024-10-08",
+        "active":"true",
+        "level":"Intermediate"
+        }' http://localhost:4000/students
+```
+![crearEstudiante](images/crud_curl/crear_usuario_POST.jpg)
+</br>
+
+- El flag -X indica el tipo de operacion HTTP que se va a utilizar (en este caso POST).
+- El flag -H indica el tipo de información (tipo de cabecera) que se le va a pasar para poder crear el nuevo estudiante.
+- El flag -d sirve para especificar la informacion que se va a subir al servidor.
+- En la parte final aparece la url (direccion del servidor en el que se va a insertar la informacion) de nuestro servidor.
+
+## Leer todos los estudiantes (GET)
+
+- Este comando devuelve un listado con todos los estudiantes que hay en la base de datos. El comando es: 
+
+```bash
+   curl -X GET http://localhost:4000/students
+```
+![crearEstudiante](images/crud_curl/ver_estudiantes.jpg)
+</br>
+
+- El flag -X indica el tipo de operacion HTTP que se va a utilizar (en este caso GET).
+
+- En la parte final aparece la url (direccion del servidor en el que se va a insertar la informacion) de nuestro servidor y la seccion de la cual vamos a sacar la información.
+
+## Leer estudiante por ID (GET)
+
+- Este comando devuelve el estudiante cuyo id coincide con el id que se ha pasado como parametro. El comando es: 
+
+```bash
+   curl -X GET http://localhost:4000/students/1
+```
+![crearEstudiante](images/crud_curl/ver_Estudiante_id.jpg)
+</br>
+
+- El flag -X indica el tipo de operacion HTTP que se va a utilizar (en este caso POST).
+
+- En la parte final aparece la url (direccion del servidor en el que se va a insertar la informacion) de nuestro servidor con la diferencia de que en la url especificamos el id del estudiante que queremos ver, en este caso es el numero 1.
+
+## Actualizar un estudiante (PUT)
+
+- Este comando actualiza la informacion del estudiante cuyo id coincide con el id que se ha pasado como parametro, reemplazando toda la informacion del estudiante por la informacion que se ha pasado como parametro. El comando es: 
+
+```bash
+   curl -X PUT http://localhost:4000/students/6 -H "Content-Type: application/json" -d '{
+        "id":"1",
+        "name":"Ernesto Diaz Sanchez",
+        "email":"ernesto.diaz@gmail.com",
+        "enrollmentDate":"2024-10-06",
+        "active":"false",
+        "level":"Begginer"
+        }'
+```
+![crearEstudiante](images/crud_curl/actualizar_estudiante.jpg)
+</br>
+
+- El flag -X indica el tipo de operacion HTTP que se va a utilizar (en este caso POST).
+- El flag -H indica el tipo de información (tipo de cabecera) que se le va a pasar para poder crear el nuevo estudiante.
+- El flag -d sirve para especificar la informacion que se va a subir al servidor.
+- En la parte final aparece la url (direccion del servidor en el que se va a insertar la informacion) de nuestro servidor. Además de especificar la seccion estudiantes y el id del usuario al que se le va a aplicar la modificacion.
+
+## Actualizar parcialmente un estudiante (PATCH)
+
+- Este comando actualiza la informacion del estudiante cuyo id coincide con el id que se ha pasado como parametro, reemplazando solo la informacion contenida en el parametro que se ha pasado, es decir, solo modifica los campos que se especifican en el comando. El comando es: 
+
+```bash
+   curl -X PATCH http://localhost:4000/students/3 -H "Content-Type: application/json" -d '{"name":"Ana Fernandez Lozano","level":"Begginer"}'
+```
+![crearEstudiante](images/crud_curl/actualizar_parcial.jpg)
+</br>
+
+- El flag -X indica el tipo de operacion HTTP que se va a utilizar (en este caso POST).
+- El flag -H indica el tipo de información (tipo de cabecera) que se le va a pasar para poder crear el nuevo estudiante.
+- El flag -d sirve para especificar la informacion que se va a subir al servidor.
+- En la parte final aparece la url (direccion del servidor en el que se va a insertar la informacion) de nuestro servidor. Además de especificar la seccion estudiantes y el id del usuario al que se le va a aplicar la modificacion.
+
+## Eliminar un estudiante (DELETE)
+
+- Este comando elimina la informacion del usuario cuyo id coincide con el id que se ha pasado como parametro. El comando es: 
+
+```bash
+   curl -X DELETE http://localhost:4000/students/7
+```
+![crearEstudiante](images/crud_curl/delete_estudiante.jpg)
+</br>
+
+- El flag -X indica el tipo de operacion HTTP que se va a utilizar (en este caso GET).
+
+- En la parte final aparece la url (direccion del servidor en el que se va a insertar la informacion) de nuestro servidor y la seccion de la cual vamos a sacar la información acompañada del id del estudiante que queremos eliminar.
+
 # Parte 4: Thunder Client – CRUD Students API
 
 Este apartado muestra el desarrollo de las pruebas realizadas con **Thunder Client** para la API de estudiantes usando la base de datos `db.json`.

@@ -18,21 +18,21 @@
 ## Parte 2: Script CRUD con JavaScript (Guille)
 
 - [x] `src/crud-curl.js`: importar `dotenv` y cargar variables de entorno
-- [ ] Implementar funciones CRUD:
+- [x] Implementar funciones CRUD:
   - [x] `createStudent(studentData)`
   - [x] `readAllStudents()`
   - [x] `readStudentById(id)`
   - [x] `updateStudent(id, studentData)`
   - [x] `patchStudent(id, partialData)`
   - [x] `deleteStudent(id)`
-- [ ] Ejecutar todas las funciones al final del script
-- [ ] Mensajes informativos al inicio y final
+- [x] Ejecutar todas las funciones al final del script
+- [x] Mensajes informativos al inicio y final
 
 ## Parte 3: Documentación CRUD con Curl 
 
-- [ ] Documentar cada operación CRUD en `README.md`
-- [ ] Explicar flags, headers, método HTTP y código de estado
-- [ ] Capturar respuestas reales al ejecutar los comandos
+- [x] Documentar cada operación CRUD en `README.md`
+- [x] Explicar flags, headers, método HTTP y código de estado
+- [x] Capturar respuestas reales al ejecutar los comandos
 
 ## Parte 4: Thunder Client (Abdul)
 
@@ -44,10 +44,10 @@
 
 ## Parte 5: REST Client (Abdul)
 
-- [ ] Crear archivo `peticiones-crud.http`
-- [ ] Definir variables: `@baseUrl`, `@port`, `@apiUrl`
-- [ ] Implementar todas las operaciones CRUD, separar con `###`, añadir comentarios
-- [ ] Probar todas las peticiones desde VS Code
+- [x] Crear archivo `peticiones-crud.http`
+- [x] Definir variables: `@baseUrl`, `@port`, `@apiUrl`
+- [x] Implementar todas las operaciones CRUD, separar con `###`, añadir comentarios
+- [x] Probar todas las peticiones desde VS Code
 
 ## Parte 6: Script de validación (Guille)
 

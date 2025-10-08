@@ -18,11 +18,11 @@
     },
     {
       "id": "3",
-      "name": "hola que tal estamos",
+      "name": "Ana Fernandez Lozano",
       "email": "ana.fernandez@email.com",
       "enrollmentDate": "2024-08-20",
       "active": false,
-      "level": "advanced"
+      "level": "Begginer"
     },
     {
       "id": "5",
@@ -34,19 +34,11 @@
     },
     {
       "id": "6",
-      "name": "Abdul Ramirez",
-      "email": "javier.lopez@email.com",
-      "enrollmentDate": "2024-07-15",
-      "active": true,
-      "level": "advanced"
-    },
-    {
-      "name": "Guillermo Bazan",
-      "email": "guille@email.com",
-      "enrollmentDate": "2022-10-01",
-      "active": true,
-      "level": "intermediate",
-      "id": "7"
+      "name": "Ernesto Diaz Sanchez",
+      "email": "ernesto.diaz@gmail.com",
+      "enrollmentDate": "2024-10-06",
+      "active": "false",
+      "level": "Begginer"
     },
     {
       "id": "ec14",
@@ -71,6 +63,22 @@
       "enrollmentDate": "2023-10-01",
       "active": true,
       "level": "expert"
+    },
+    {
+      "id": "8",
+      "name": "Romualdo Contreras Jerez",
+      "email": "romualdo@gmail.com",
+      "enrollmentDate": "2024-10-08",
+      "active": "true",
+      "level": "Intermediate"
+    },
+    {
+      "id": "8",
+      "name": "Romualdo Contreras Jerez",
+      "email": "romualdo@gmail.com",
+      "enrollmentDate": "2024-10-08",
+      "active": "true",
+      "level": "Intermediate"
     }
   ],
   "courses": [
