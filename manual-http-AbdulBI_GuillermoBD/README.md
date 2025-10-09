@@ -2,7 +2,7 @@
 
 ## Crear estudiante (POST)
 
-- Este comando crea un nuevo usuario con los datos que se pasan como parametro a la funcion. El comando es: 
+- Este comando crea un nuevo usuario con los datos que se pasan como parametro a la funcion. El comando es:
 
 ```bash
    curl -X POST -H "Content-Type: application/json" -d '{
@@ -14,6 +14,7 @@
         "level":"Intermediate"
         }' http://localhost:4000/students
 ```
+
 ![crearEstudiante](images/crud_curl/crear_usuario_POST.jpg)
 </br>
 
@@ -24,11 +25,12 @@
 
 ## Leer todos los estudiantes (GET)
 
-- Este comando devuelve un listado con todos los estudiantes que hay en la base de datos. El comando es: 
+- Este comando devuelve un listado con todos los estudiantes que hay en la base de datos. El comando es:
 
 ```bash
    curl -X GET http://localhost:4000/students
 ```
+
 ![crearEstudiante](images/crud_curl/ver_estudiantes.jpg)
 </br>
 
@@ -38,11 +40,12 @@
 
 ## Leer estudiante por ID (GET)
 
-- Este comando devuelve el estudiante cuyo id coincide con el id que se ha pasado como parametro. El comando es: 
+- Este comando devuelve el estudiante cuyo id coincide con el id que se ha pasado como parametro. El comando es:
 
 ```bash
    curl -X GET http://localhost:4000/students/1
 ```
+
 ![crearEstudiante](images/crud_curl/ver_Estudiante_id.jpg)
 </br>
 
@@ -52,7 +55,7 @@
 
 ## Actualizar un estudiante (PUT)
 
-- Este comando actualiza la informacion del estudiante cuyo id coincide con el id que se ha pasado como parametro, reemplazando toda la informacion del estudiante por la informacion que se ha pasado como parametro. El comando es: 
+- Este comando actualiza la informacion del estudiante cuyo id coincide con el id que se ha pasado como parametro, reemplazando toda la informacion del estudiante por la informacion que se ha pasado como parametro. El comando es:
 
 ```bash
    curl -X PUT http://localhost:4000/students/6 -H "Content-Type: application/json" -d '{
@@ -64,6 +67,7 @@
         "level":"Begginer"
         }'
 ```
+
 ![crearEstudiante](images/crud_curl/actualizar_estudiante.jpg)
 </br>
 
@@ -74,11 +78,12 @@
 
 ## Actualizar parcialmente un estudiante (PATCH)
 
-- Este comando actualiza la informacion del estudiante cuyo id coincide con el id que se ha pasado como parametro, reemplazando solo la informacion contenida en el parametro que se ha pasado, es decir, solo modifica los campos que se especifican en el comando. El comando es: 
+- Este comando actualiza la informacion del estudiante cuyo id coincide con el id que se ha pasado como parametro, reemplazando solo la informacion contenida en el parametro que se ha pasado, es decir, solo modifica los campos que se especifican en el comando. El comando es:
 
 ```bash
    curl -X PATCH http://localhost:4000/students/3 -H "Content-Type: application/json" -d '{"name":"Ana Fernandez Lozano","level":"Begginer"}'
 ```
+
 ![crearEstudiante](images/crud_curl/actualizar_parcial.jpg)
 </br>
 
@@ -89,11 +94,12 @@
 
 ## Eliminar un estudiante (DELETE)
 
-- Este comando elimina la informacion del usuario cuyo id coincide con el id que se ha pasado como parametro. El comando es: 
+- Este comando elimina la informacion del usuario cuyo id coincide con el id que se ha pasado como parametro. El comando es:
 
 ```bash
    curl -X DELETE http://localhost:4000/students/7
 ```
+
 ![crearEstudiante](images/crud_curl/delete_estudiante.jpg)
 </br>
 
@@ -234,8 +240,8 @@ Se creó un archivo llamado `peticiones-crud.http` en la raíz del proyecto con 
 
  **Notas**:
 
-  * REST Client **no lee `.env`**, por lo que todas las variables deben definirse dentro del archivo `.http`.
-  * Cada petición está separada con `###` y tiene comentarios descriptivos para facilitar la comprensión.
+- REST Client **no lee `.env`**, por lo que todas las variables deben definirse dentro del archivo `.http`.
+- Cada petición está separada con `###` y tiene comentarios descriptivos para facilitar la comprensión.
 
 ---
 
@@ -243,7 +249,7 @@ Se creó un archivo llamado `peticiones-crud.http` en la raíz del proyecto con 
 
 Se implementaron las siguientes operaciones CRUD sobre el recurso `students`:
 
-1. **CREATE Student (POST)** – Crear un nuevo estudiante (ejemplo: Abdul y Guillermo Bazán).
+1. **CREATE Student (POST)** – Crear un nuevo estudiante .
 2. **READ All Students (GET)** – Obtener todos los estudiantes.
 3. **READ Student by ID (GET)** – Consultar un estudiante específico.
 4. **READ Students activos (GET)** – Filtrar estudiantes cuyo campo `active` sea `true`.
@@ -262,7 +268,8 @@ Cada captura debe mostrar **request completa** (método, URL, headers y body) y 
 
 Request a `{{apiUrl}}` con body en JSON.
 
-* Estudiantes de ejemplo: Abdul y Guillermo Bazán.
+- En esta peticion se crea un nuevo estudiante con los datos proporcionados en el body. El metodo utilizado es POST. Y la URL completa se forma con las variables definidas al inicio del archivo.
+- Ademas se especifica el header Content-Type para indicar que el body es de tipo JSON. Y se necesario incluir todos los campos del estudiante en el body para que la creacion sea exitosa si no da error.
 
 **Captura ejemplo**:
 ![create\_student](images/http/createStudent.png)
@@ -273,6 +280,9 @@ Request a `{{apiUrl}}` con body en JSON.
 
 Request a `{{apiUrl}}` para listar todos los estudiantes.
 
+- En esta peticion se muestran todos los estudiantes que hay en la base de datos. El metodo utilizado es GET. Y la URL completa se forma con las variables definidas al inicio del archivo.
+- No es necesario incluir ningun header ni body en esta peticion ya que solo se esta solicitando informacion.
+
 **Captura ejemplo**:
 ![get\_all\_students](images/http/getAllStudents.png)
 
@@ -280,7 +290,11 @@ Request a `{{apiUrl}}` para listar todos los estudiantes.
 
 ### 3. GET Student by ID (GET)
 
-Request a `{{apiUrl}}/2` para consultar Guillermo Bazán.
+Request a `{{apiUrl}}/2` para consultar un estudiante específico.
+
+- En esta peticion se muestra un estudiante en particular cuyo id es 2. El metodo utilizado es GET. Y la URL completa se forma con las variables definidas al inicio del archivo.
+- No es necesario incluir ningun header ni body en esta peticion ya que solo se esta solicitando informacion.
+- La respuesta debe incluir todos los campos del estudiante.
 
 **Captura ejemplo**:
 ![get\_student\_by\_id](images/http/getStudentById.png)
@@ -291,6 +305,9 @@ Request a `{{apiUrl}}/2` para consultar Guillermo Bazán.
 
 Request a `{{apiUrl}}?active=true` para filtrar solo estudiantes activos.
 
+- En esta peticion se muestran todos los estudiantes cuyo campo active es true. El metodo utilizado es GET. Y la URL completa se forma con las variables definidas al inicio del archivo.
+- No es necesario incluir ningun header ni body en esta peticion ya que solo se esta solicitando informacion.
+
 **Captura ejemplo**:
 ![get\_active\_students](images/http/getActiveStudents.png)
 
@@ -300,6 +317,8 @@ Request a `{{apiUrl}}?active=true` para filtrar solo estudiantes activos.
 
 Request a `{{apiUrl}}?level=intermediate` para filtrar por nivel.
 
+- En esta peticion se muestran todos los estudiantes cuyo campo level es intermediate. El metodo utilizado es GET. Y la URL completa se forma con las variables definidas al inicio del archivo.
+  
 **Captura ejemplo**:
 ![get\_students\_level](images/http/getStudentsLevel.png)
 
@@ -307,10 +326,10 @@ Request a `{{apiUrl}}?level=intermediate` para filtrar por nivel.
 
 ### 6. UPDATE Student (PUT)
 
-Request a `{{apiUrl}}/2` para actualizar todos los campos de Guillermo Bazán.
+Request a `{{apiUrl}}/2` para actualizar todos los campos del estudiante.
 
-* Body completo en JSON.
-* Antes y después de la actualización.
+- En esta peticion se actualizan todos los campos de un estudiante en particular cuyo id es 2. El metodo utilizado es PUT. Y la URL completa se forma con las variables definidas al inicio del archivo.
+- Es necesario incluir el header Content-Type para indicar que el body es de tipo JSON.
 
 **Capturas ejemplo**:
 ![update\_student](images/http/putStudent.png)
@@ -321,6 +340,8 @@ Request a `{{apiUrl}}/2` para actualizar todos los campos de Guillermo Bazán.
 
 Request a `{{apiUrl}}/2` para actualizar solo campos específicos (`Abdul Ramirez`).
 
+- En esta peticion se actualizan solo algunos campos de un estudiante en particular cuyo id es 2. El metodo utilizado es PATCH. Y la URL completa se forma con las variables definidas al inicio del archivo.
+
 **Capturas ejemplo**:
 ![patch\_student](images/http/patchStudent.png)
 
@@ -329,6 +350,8 @@ Request a `{{apiUrl}}/2` para actualizar solo campos específicos (`Abdul Ramire
 ### 8. DELETE Student (DELETE)
 
 Request a `{{apiUrl}}/3` para eliminar un estudiante de prueba.
+
+- En esta peticion se elimina un estudiante en particular cuyo id es 3. El metodo utilizado es DELETE. Y la URL completa se forma con las variables definidas al inicio del archivo.
 
 **Captura ejemplo**:
 ![delete\_student](images/http/deleteStudent.png)
@@ -339,8 +362,8 @@ Request a `{{apiUrl}}/3` para eliminar un estudiante de prueba.
 
 1. Para ejecutar las pruebas:
 
-   * Abrir `peticiones-crud.http` en VS Code.
-   * Hacer clic en **Send Request** sobre cada petición.
+   - Abrir `peticiones-crud.http` en VS Code.
+   - Hacer clic en **Send Request** sobre cada petición.
+  
 2. Todas las variables (`@baseUrl`, `@port`, `@apiUrl`, `@ContentType`) se definen **dentro del archivo**.
 3. Cada petición está separada con `###` y contiene comentarios explicativos.
-4. Las capturas de pantalla deben mostrar **request y response completas**, incluyendo headers, método, URL y body.
