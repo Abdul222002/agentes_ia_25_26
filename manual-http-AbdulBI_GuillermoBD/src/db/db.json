@@ -10,19 +10,27 @@
     },
     {
       "id": "2",
-      "name": "Guillermo Bazan",
-      "email": "guille@email.com",
-      "enrollmentDate": "2022-10-01",
-      "active": false,
+      "name": "Carlos Rodríguez Martín",
+      "email": "carlos.rodriguez@email.com",
+      "enrollmentDate": "2024-10-01",
+      "active": true,
       "level": "beginner"
     },
     {
       "id": "3",
-      "name": "Ana Fernandez Lozano",
+      "name": "Ana Fernández Silva",
       "email": "ana.fernandez@email.com",
       "enrollmentDate": "2024-08-20",
       "active": false,
-      "level": "Begginer"
+      "level": "advanced"
+    },
+    {
+      "id": "4",
+      "name": "David Sánchez Torres",
+      "email": "david.sanchez@email.com",
+      "enrollmentDate": "2024-09-10",
+      "active": true,
+      "level": "intermediate"
     },
     {
       "id": "5",
@@ -34,50 +42,34 @@
     },
     {
       "id": "6",
-      "name": "Ernesto Diaz Sanchez",
-      "email": "ernesto.diaz@gmail.com",
-      "enrollmentDate": "2024-10-06",
-      "active": "false",
-      "level": "Begginer"
-    },
-    {
-      "id": "ec14",
-      "name": "Abdul Hakim Byaz Iglesias",
-      "email": "abdul@gmail.com",
-      "enrollmentDate": "2023-10-1",
+      "name": "Javier López Gómez",
+      "email": "javier.lopez@email.com",
+      "enrollmentDate": "2024-07-15",
       "active": true,
-      "level": "expert"
+      "level": "advanced"
     },
     {
-      "id": "11ee",
-      "name": "Abdul Hakim Byaz Iglesias",
-      "email": "abdul@gmail.com",
-      "enrollmentDate": "2023-10-01",
-      "active": true,
-      "level": "expert"
+      "id": "7",
+      "name": "Elena Díaz Moreno",
+      "email": "elena.diaz@email.com",
+      "enrollmentDate": "2024-09-05",
+      "active": false,
+      "level": "intermediate"
     },
     {
-      "id": "73ce",
-      "name": "Abdul Hakim Byaz Iglesias",
-      "email": "abdul@gmail.com",
-      "enrollmentDate": "2023-10-01",
-      "active": true,
-      "level": "expert"
-    },
-    {
-      "id": "8",
-      "name": "Romualdo Contreras Jerez",
+      "id": 8,
+      "name": "Romualdo",
       "email": "romualdo@gmail.com",
       "enrollmentDate": "2024-10-08",
-      "active": "true",
+      "active": true,
       "level": "Intermediate"
     },
     {
-      "id": "8",
-      "name": "Romualdo Contreras Jerez",
+      "id": 8,
+      "name": "Romualdo",
       "email": "romualdo@gmail.com",
       "enrollmentDate": "2024-10-08",
-      "active": "true",
+      "active": true,
       "level": "Intermediate"
     }
   ],
@@ -139,6 +131,14 @@
       "enrollmentDate": "2024-09-10",
       "progress": 60,
       "completed": false
+    },
+    {
+      "id": "4",
+      "studentId": 6,
+      "courseId": 3,
+      "enrollmentDate": "2024-07-15",
+      "progress": 100,
+      "completed": true
     }
   ]
 }
