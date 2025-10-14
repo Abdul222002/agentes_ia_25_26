@@ -4,18 +4,7 @@
 
 - Este comando crea un nuevo usuario con los datos que se pasan como parametro a la funcion. El comando es:
 
-```bash
-   curl -X POST -H "Content-Type: application/json" -d '{
-        "id":"8",
-        "name":"Romualdo Contreras Jerez",
-        "email":"romualdo@gmail.com",
-        "enrollmentDate":"2024-10-08",
-        "active":"true",
-        "level":"Intermediate"
-        }' http://localhost:4000/students
-```
-
-![crearEstudiante](images/crud_curl/crear_usuario_POST.jpg)
+![crearEstudiante](images/crud_curl/create_student.jpg)
 </br>
 
 - El flag -X indica el tipo de operacion HTTP que se va a utilizar (en este caso POST).
@@ -27,11 +16,7 @@
 
 - Este comando devuelve un listado con todos los estudiantes que hay en la base de datos. El comando es:
 
-```bash
-   curl -X GET http://localhost:4000/students
-```
-
-![crearEstudiante](images/crud_curl/ver_estudiantes.jpg)
+![ver estudiantes](images/crud_curl/read_all_students.jpg)
 </br>
 
 - El flag -X indica el tipo de operacion HTTP que se va a utilizar (en este caso GET).
@@ -42,11 +27,7 @@
 
 - Este comando devuelve el estudiante cuyo id coincide con el id que se ha pasado como parametro. El comando es:
 
-```bash
-   curl -X GET http://localhost:4000/students/1
-```
-
-![crearEstudiante](images/crud_curl/ver_Estudiante_id.jpg)
+![ver estudiante por id](images/crud_curl/read_student_id.jpg)
 </br>
 
 - El flag -X indica el tipo de operacion HTTP que se va a utilizar (en este caso POST).
@@ -57,18 +38,7 @@
 
 - Este comando actualiza la informacion del estudiante cuyo id coincide con el id que se ha pasado como parametro, reemplazando toda la informacion del estudiante por la informacion que se ha pasado como parametro. El comando es:
 
-```bash
-   curl -X PUT http://localhost:4000/students/6 -H "Content-Type: application/json" -d '{
-        "id":"1",
-        "name":"Ernesto Diaz Sanchez",
-        "email":"ernesto.diaz@gmail.com",
-        "enrollmentDate":"2024-10-06",
-        "active":"false",
-        "level":"Begginer"
-        }'
-```
-
-![crearEstudiante](images/crud_curl/actualizar_estudiante.jpg)
+![actualizar estudiante](images/crud_curl/update_student.jpg)
 </br>
 
 - El flag -X indica el tipo de operacion HTTP que se va a utilizar (en este caso POST).
@@ -80,11 +50,9 @@
 
 - Este comando actualiza la informacion del estudiante cuyo id coincide con el id que se ha pasado como parametro, reemplazando solo la informacion contenida en el parametro que se ha pasado, es decir, solo modifica los campos que se especifican en el comando. El comando es:
 
-```bash
-   curl -X PATCH http://localhost:4000/students/3 -H "Content-Type: application/json" -d '{"name":"Ana Fernandez Lozano","level":"Begginer"}'
-```
 
-![crearEstudiante](images/crud_curl/actualizar_parcial.jpg)
+
+![actualizar parcialmente un estudiante](images/crud_curl/patch_student.jpg)
 </br>
 
 - El flag -X indica el tipo de operacion HTTP que se va a utilizar (en este caso POST).
@@ -96,11 +64,7 @@
 
 - Este comando elimina la informacion del usuario cuyo id coincide con el id que se ha pasado como parametro. El comando es:
 
-```bash
-   curl -X DELETE http://localhost:4000/students/7
-```
-
-![crearEstudiante](images/crud_curl/delete_estudiante.jpg)
+![eliminar estudiante](images/crud_curl/delete_student.jpg)
 </br>
 
 - El flag -X indica el tipo de operacion HTTP que se va a utilizar (en este caso GET).
@@ -367,3 +331,11 @@ Request a `{{apiUrl}}/3` para eliminar un estudiante de prueba.
   
 2. Todas las variables (`@baseUrl`, `@port`, `@apiUrl`, `@ContentType`) se definen **dentro del archivo**.
 3. Cada petición está separada con `###` y contiene comentarios explicativos.
+
+
+# PARTE 6: Script de validación
+
+- Este apartado está dedicado a la comprobación de los archivos y carpetas necesarios del proyecto, es decir, verifica que existen todos los ficheros, scripts y directorios requeridos para su correcta ejecución.
+Además, comprueba que las dependencias listadas en el archivo package.json estén correctamente instaladas en el entorno local.
+
+![script de validacion](images/validate_sh.jpg)

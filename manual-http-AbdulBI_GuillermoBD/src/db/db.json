@@ -18,11 +18,11 @@
     },
     {
       "id": "3",
-      "name": "Ana Fernández Silva",
+      "name": "Ana Fernandez Lozano",
       "email": "ana.fernandez@email.com",
       "enrollmentDate": "2024-08-20",
       "active": false,
-      "level": "advanced"
+      "level": "Begginer"
     },
     {
       "id": "4",
@@ -42,31 +42,15 @@
     },
     {
       "id": "6",
-      "name": "Javier López Gómez",
-      "email": "javier.lopez@email.com",
-      "enrollmentDate": "2024-07-15",
-      "active": true,
-      "level": "advanced"
-    },
-    {
-      "id": "7",
-      "name": "Elena Díaz Moreno",
-      "email": "elena.diaz@email.com",
-      "enrollmentDate": "2024-09-05",
+      "name": "Ernesto Diaz Sanchez",
+      "email": "ernesto.diaz@gmail.com",
+      "enrollmentDate": "2024-10-06",
       "active": false,
-      "level": "intermediate"
+      "level": "Begginer"
     },
     {
       "id": 8,
-      "name": "Romualdo",
-      "email": "romualdo@gmail.com",
-      "enrollmentDate": "2024-10-08",
-      "active": true,
-      "level": "Intermediate"
-    },
-    {
-      "id": 8,
-      "name": "Romualdo",
+      "name": "Romualdo Contreras Jerez",
       "email": "romualdo@gmail.com",
       "enrollmentDate": "2024-10-08",
       "active": true,
