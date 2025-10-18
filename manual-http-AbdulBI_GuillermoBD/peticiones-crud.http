@@ -1,0 +1,117 @@
+@baseUrl = http://localhost
+@port = 4000
+@apiUrl = {{baseUrl}}:{{port}}/students
+@ContentType = application/json
+
+###
+# ➕ CREATE Student (POST) - Abdul
+# Descripción: Crea un nuevo estudiante llamado Abdul.
+# Response típica:
+# {
+#   "id": "ec14",
+#   "name": "Abdul Hakim Byaz Iglesias",
+#   "email": "abdul@gmail.com",
+#   "enrollmentDate": "2023-10-01",
+#   "active": true,
+#   "level": "expert"
+# }
+POST {{apiUrl}}
+Content-Type: {{ContentType}}
+
+{
+  "name": "Abdul Hakim Byaz Iglesias",
+  "email": "abdul@gmail.com",
+  "enrollmentDate": "2023-10-01",
+  "active": true,
+  "level": "expert"
+}
+
+###
+# READ All Students (GET)
+# Descripción: Muestra todos los estudiantes presentes en la base de datos.
+# Response típica: Array de objetos de estudiantes
+GET {{apiUrl}}
+
+###
+# READ Student by ID (GET)
+# Descripción: Muestra los datos del estudiante con id=2.
+# Response típica:
+# {
+#   "id": "2",
+#   "name": "Guillermo Bazan",
+#   "email": "guille@email.com",
+#   "enrollmentDate": "2022-10-01",
+#   "active": false,
+#   "level": "beginner"
+# }
+GET {{apiUrl}}/2
+
+###
+# READ Students activos (GET)
+# Descripción: Filtra y muestra solo los estudiantes que están activos.
+# Query: ?active=true
+# Response típica: Array de estudiantes cuyo campo active es true
+GET {{apiUrl}}?active=true
+
+###
+# READ Students por nivel (GET) - intermediate
+# Descripción: Filtra y muestra los estudiantes de nivel intermedio.
+# Query: ?level=intermediate
+# Response típica: Array de estudiantes cuyo campo level="intermediate"
+GET {{apiUrl}}?level=intermediate
+
+###
+# UPDATE Student (PUT)
+# Descripción: Actualiza completamente al estudiante con id=7.
+# Nota: PUT reemplaza todos los campos del recurso, por eso se envía toda la información.
+# Response típica:
+# {
+#   "id": "7",
+#   "name": "Guillermo Bazan",
+#   "email": "guille@email.com",
+#   "enrollmentDate": "2022-10-01",
+#   "active": true,
+#   "level": "intermediate"
+# }
+PUT {{apiUrl}}/7
+Content-Type: {{ContentType}}
+
+{
+  "name": "Guillermo Bazan",
+  "email": "guille@email.com",
+  "enrollmentDate": "2022-10-01",
+  "active": true,
+  "level": "intermediate"
+}
+
+###
+# ✏ PATCH Student (PATCH) - cambiar nombre de Abdul Ramirez
+# Descripción: Actualiza solo el nombre del estudiante con id=6, sin modificar los demás campos.
+# Response típica:
+# {
+#   "id": "6",
+#   "name": "Abdul Ramirez",
+#   "email": "javier.lopez@email.com",
+#   "enrollmentDate": "2024-07-15",
+#   "active": true,
+#   "level": "advanced"
+# }
+PATCH {{apiUrl}}/6
+Content-Type: {{ContentType}}
+
+{
+  "name": "Abdul Ramirez"
+}
+
+###
+# 🗑 DELETE Student (DELETE) - estudiante de prueba con id=4
+# Descripción: Elimina al estudiante con id=4.
+# Nota: JSON Server devuelve un objeto vacío {} al eliminar correctamente.
+# Response típica: {}
+DELETE {{apiUrl}}/4
+
+###
+# 📌 Notas adicionales sobre filtros y respuestas
+# - GET con query parameters permite filtrar: ?active=true o ?level=intermediate
+# - Si no se encuentra un ID en GET, PUT, PATCH o DELETE, JSON Server devuelve un 404 con mensaje de error.
+# - DELETE siempre devuelve {} aunque el estudiante no exista.
