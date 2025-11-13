@@ -1,0 +1,18 @@
+{ 
+  "Nombre": "generador-preguntas-backend-AH_JP", 
+  "Descripción": "Backend para generador de preguntas con Ollama", 
+  "Autores": "Abdul Hakim, Juan Perez",
+  "type": "module",
+  "dependencies": {
+    "better-sqlite3": "^12.4.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0"
+  },
+  "scripts": { 
+    "dev": "nodemon server.js", 
+    "start": "node server.js" } ,
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
