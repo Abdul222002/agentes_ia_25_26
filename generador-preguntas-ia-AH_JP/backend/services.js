@@ -12,8 +12,8 @@ function timeout(ms) {
 export const generarPreguntas = async (temaId, numPreguntas = 3, subtema = 'general') => {
   try {
     const MAX_PREGUNTAS = 5;
-    const URL_API = import.meta.env.AI_API_URL;
-    const MODEL = import.meta.env.AI_MODEL;
+    const URL_API = process.env.AI_API_URL || 'http://localhost:11434';
+    const MODEL = process.env.AI_MODEL || 'llama3.2:1b';
 
     // Validaciones
     if (!temaId) throw new Error('Debes indicar un tema');

@@ -1,0 +1,156 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
+import express from 'express';
+import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+import db from './db.js';
+import routes from './routes.js';
+
+// Obtener __dirname en módulos ES
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const app = express();
+
+// ------------------------
+// Configuración
+// ------------------------
+const PORT = process.env.PORT || 3005;
+const NODE_ENV = process.env.NODE_ENV || 'development';
+const ALLOWED_ORIGINS = [
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  'http://localhost:3005',
+  'http://127.0.0.1:3005'
+];
+
+// ------------------------
+// Middleware
+// ------------------------
+
+// CORS configurado con manejo de errores
+app.use(cors({
+  origin: (origin, callback) => {
+    // Permitir peticiones sin origin (como Postman o curl)
+    if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('No permitido por CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+// Parser de JSON con límite de tamaño
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Middleware de logging
+app.use((req, res, next) => {
+  const timestamp = new Date().toISOString();
+  console.log(`[${timestamp}] ${req.method} ${req.path} - IP: ${req.ip}`);
+  next();
+});
+
+// ------------------------
+// Rutas API
+// ------------------------
+app.use('/api', routes);
+
+// ------------------------
+// Servir frontend estático (solo en producción o si existe dist)
+// ------------------------
+const distPath = path.join(__dirname, '../frontend/dist');
+app.use(express.static(distPath));
+
+// Redirigir todas las rutas no API al index.html (SPA)
+app.get('*', (req, res, next) => {
+  // No redirigir rutas de API
+  if (req.path.startsWith('/api')) {
+    return next();
+  }
+  res.sendFile(path.join(distPath, 'index.html'), (err) => {
+    if (err) {
+      res.status(404).json({
+        success: false,
+        error: 'Frontend no encontrado. Ejecuta npm run build en el directorio frontend.'
+      });
+    }
+  });
+});
+
+// ------------------------
+// Manejo de errores global
+// ------------------------
+
+// Manejo de rutas no encontradas
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    error: 'Ruta no encontrada',
+    path: req.path,
+    codigo: 404
+  });
+});
+
+// Manejo de errores general
+app.use((err, req, res, next) => {
+  console.error('Error no manejado:', err);
+  res.status(err.status || 500).json({
+    success: false,
+    error: NODE_ENV === 'development' ? err.message : 'Error interno del servidor',
+    ...(NODE_ENV === 'development' && { stack: err.stack }),
+    codigo: err.status || 500
+  });
+});
+
+// ------------------------
+// Iniciar servidor
+// ------------------------
+const server = app.listen(PORT, () => {
+  console.log('\n' + '='.repeat(60));
+  console.log('🚀 Generador de Preguntas IA - SERVIDOR INICIADO');
+  console.log('='.repeat(60));
+  console.log(`📡 Puerto:        ${PORT}`);
+  console.log(`🌍 Entorno:       ${NODE_ENV}`);
+  console.log(`🔗 URL Local:     http://localhost:${PORT}`);
+  console.log(`🔗 URL API:       http://localhost:${PORT}/api`);
+  console.log(`📂 Frontend:      ${distPath}`);
+  console.log(`⏰ Iniciado:      ${new Date().toLocaleString('es-ES')}`);
+  console.log('='.repeat(60) + '\n');
+});
+
+// Manejo de cierre graceful
+process.on('SIGTERM', () => {
+  console.log('\n⚠️  SIGTERM recibido. Cerrando servidor...');
+  server.close(() => {
+    console.log('✅ Servidor cerrado correctamente');
+    db.close();
+    process.exit(0);
+  });
+});
+
+process.on('SIGINT', () => {
+  console.log('\n⚠️  SIGINT recibido (Ctrl+C). Cerrando servidor...');
+  server.close(() => {
+    console.log('✅ Servidor cerrado correctamente');
+    db.close();
+    process.exit(0);
+  });
+});
+
+// Manejo de errores no capturados
+process.on('uncaughtException', (err) => {
+  console.error('❌ Error no capturado:', err);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('❌ Promesa rechazada no manejada:', reason);
+  process.exit(1);
+});
