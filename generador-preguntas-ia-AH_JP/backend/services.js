@@ -1,24 +1,32 @@
-import { temas } from "./prompts"
+import { temas } from "./prompts.js"
 import fetch from 'node-fetch';
 import db from './db.js';
 import dotenv from 'dotenv';
+
 dotenv.config();
 
 // Timeout helper
 function timeout(ms) {
-  return new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout de Ollama')), ms));
+  return new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout de mistral')), ms));
 }
 
 export const generarPreguntas = async (temaId, numPreguntas = 3, subtema = 'general') => {
   try {
     const MAX_PREGUNTAS = 5;
     const URL_API = process.env.AI_API_URL || 'http://localhost:11434';
-    const MODEL = process.env.AI_MODEL || 'llama3.2:1b';
+    const MODEL = process.env.AI_MODEL || 'mistral';
 
     // Validaciones
     if (!temaId) throw new Error('Debes indicar un tema');
 
-    if (numPreguntas < 1 || numPreguntas > MAX_PREGUNTAS) throw new Error(`numPreguntas debe estar entre 1 y ${MAX_PREGUNTAS}`);
+    if (numPreguntas < 1 || numPreguntas > MAX_PREGUNTAS){ 
+      throw new Error(`numPreguntas debe estar entre 1 y ${MAX_PREGUNTAS}`);
+    }    
+
+    if (!Number.isInteger(numPreguntas)) {
+      throw new Error('numPreguntas debe ser un número entero');
+    }
+    
     // Buscar tema
     //Esto nos devolvera el objeto completo del tema en el array que nosotros definimos en prompts.js
     const tema = temas.find(t => t.id === temaId);
@@ -29,7 +37,7 @@ export const generarPreguntas = async (temaId, numPreguntas = 3, subtema = 'gene
       .replace('{num_preguntas}', numPreguntas)
       .replace('{subtema}', subtema);
 
-    // Llamada a Ollama con timeout
+    // Llamada a mistral con timeout
     const response = await Promise.race([
       fetch(`${URL_API}/api/generate`, {
         method: 'POST',
@@ -43,17 +51,53 @@ export const generarPreguntas = async (temaId, numPreguntas = 3, subtema = 'gene
       timeout(60000)
     ]);
 
-    if (!response.ok) throw new Error(`Ollama respondió con status ${response.status}`);
+    if (!response.ok) throw new Error(`mistral respondió con status ${response.status}`);
 
-    const data = await response.json();
+    const textResponse = await response.text();
+    const lines = textResponse.trim().split('\n');
+    
+    // Combinar todas las respuestas
+    let outputText = '';
+    for (const line of lines) {
+      if (line.trim()) {
+        const parsed = JSON.parse(line);
+        outputText += parsed.response || '';
+      }
+    }
 
-    // Parsear JSON de Ollama
-    const outputText = data.output || data.text || '';
+    if (!outputText) throw new Error('Respuesta de mistral vacía');
+    
     let preguntasJSON;
     try {
-      preguntasJSON = JSON.parse(outputText).preguntas;
-    } catch {
-      throw new Error('Respuesta de Ollama no es un JSON válido');
+      // Intentar parsear directamente
+      let parsed;
+      try {
+        parsed = JSON.parse(outputText);
+      } catch (e) {
+        // Si falla, buscar JSON dentro de la respuesta
+        const jsonMatch = outputText.match(/\{[\s\S]*\}/);
+        if (!jsonMatch) {
+          console.error('Respuesta raw:', outputText.substring(0, 500));
+          throw new Error('No se encontró JSON en la respuesta');
+        }
+        
+        // Intentar parsear el JSON encontrado
+        try {
+          parsed = JSON.parse(jsonMatch[0]);
+        } catch (parseError) {
+          console.error('JSON encontrado pero no válido:', jsonMatch[0].substring(0, 300));
+          throw parseError;
+        }
+      }
+      
+      preguntasJSON = parsed.preguntas;
+
+      if (!Array.isArray(preguntasJSON) || preguntasJSON.length === 0) {
+        throw new Error('El JSON no contiene un array de preguntas válido');
+      }
+    } catch (error) {
+      console.error('Error al procesar respuesta de mistral:', error.message);
+      throw new Error('Respuesta de mistral no es un JSON válido: ' + error.message);
     }
 
     // Guardar en SQLite3
@@ -84,7 +128,7 @@ export const generarPreguntas = async (temaId, numPreguntas = 3, subtema = 'gene
   }
 };
 
-export const obtenerPreguntas=(tema)=>{
+export const obtenerPreguntas=(tema='')=>{
     try {
     if (!tema) throw new Error('Debes indicar un tema');
 

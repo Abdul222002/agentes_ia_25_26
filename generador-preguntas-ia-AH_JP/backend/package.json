@@ -9,7 +9,7 @@
     "start": "node server.js"
   },
   "keywords": ["ollama", "ai", "questions", "generator"],
-  "authors": "Abdul Hakim, Juan Perez",
+  "author": "Abdul Hakim y Juan Perez",
   "license": "ISC",
   "dependencies": {
     "better-sqlite3": "^12.4.1",

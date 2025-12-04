@@ -3,73 +3,78 @@
 ## 🎬 Parte 1: Configuración inicial del proyecto
 
 ### 🏗 1.1 Inicialización del proyecto
-- [ ] Crear carpeta del proyecto  
-- [ ] Inicializar repositorio Git  
-- [ ] Crear rama de trabajo para desarrollo  
+- [X] Crear carpeta del proyecto  
+- [X] Inicializar repositorio Git  
+- [X] Crear rama de trabajo para desarrollo  
 
 ### 📦 1.2 Backend - Instalación de dependencias
-- [ ] Completar los datos del package.json (nombre, descripción, autor)  
-- [ ] Instalar dependencias: express, dotenv, better-sqlite3, cors  
-- [ ] Instalar dependencia de desarrollo: nodemon  
-- [ ] Entender para qué sirve cada paquete  
+- [X] Completar los datos del package.json (nombre, descripción, autor)  
+- [X] Instalar dependencias: express, dotenv, better-sqlite3, cors  
+- [X] Instalar dependencia de desarrollo: nodemon  
+- [X] Entender para qué sirve cada paquete  
 
 ### ⚙ 1.3 Configuración de package.json (backend)
-- [ ] Añadir tipo de módulo (ES Modules)  
-- [ ] Configurar scripts de desarrollo y ejecución  
+
+- [X] Añadir tipo de módulo (ES Modules)  
+- [X] Configurar scripts de desarrollo y ejecución  
 
 ### 🔧 1.4 Archivos de configuración
-- [ ] Crear archivos .env, .env.example y .gitignore  
+
+- [X] Crear archivos .env, .env.example y .gitignore  
 
 ### 🖥️ 1.5 Frontend - Estructura básica
-- [ ] Crear carpeta frontend  
-- [ ] Crear index.html con estructura básica y div principal  
-- [ ] Enlazar style.css y main.js  
-- [ ] Crear archivos vacíos style.css y main.js  
 
+- [X] Crear carpeta frontend  
+- [X] Crear index.html con estructura básica y div principal  
+- [X] Enlazar style.css y main.js  
+- [X] Crear archivos vacíos style.css y main.js  
+  
 ### 🗄️ 1.6 Base de datos SQLite3
-- [ ] Crear carpeta backend/db  
-- [ ] No crear manualmente preguntas.db  
-- [ ] Asegurarse de que el script la genere automáticamente  
+
+- [X] Crear carpeta backend/db  
+- [X] No crear manualmente preguntas.db  
+- [X] Asegurarse de que el script la genere automáticamente  
 
 ---
 
 ## 💻 Parte 2: Backend - Implementación
 
 ### 🧱 2.1 backend/db.js
-- [ ] Inicializar base de datos con better-sqlite3  
-- [ ] Crear tablas necesarias  
+
+- [X] Inicializar base de datos con better-sqlite3  
+- [X] Crear tablas necesarias  
 
 ### 📝 2.2 backend/prompts.js
-- [ ] Definir al menos tres temas  
-- [ ] Cada tema debe tener: id, nombre, descripción y prompt  
-- [ ] Incluir placeholders para número de preguntas y subtema  
+- [x] Definir al menos tres temas  
+- [x] Cada tema debe tener: id, nombre, descripción y prompt  
+- [x] Incluir placeholders para número de preguntas y subtema  
 
 ### ⚙ 2.3 backend/services.js
-- [ ] Crear función para generar preguntas usando Ollama  
-- [ ] Crear función para obtener preguntas de un tema  
-- [ ] Crear función para eliminar una pregunta  
-- [ ] Crear función para limpiar preguntas por tema  
-- [ ] Implementar validaciones y manejo de errores (timeouts, rangos, temas válidos)  
+- [x] Crear función para generar preguntas usando Ollama  
+- [x] Crear función para obtener preguntas de un tema  
+- [x] Crear función para eliminar una pregunta  
+- [x] Crear función para limpiar preguntas por tema  
+- [x] Implementar validaciones y manejo de errores (timeouts, rangos, temas válidos)  
 
 ### 🌐 2.4 backend/routes.js
-- [ ] Crear router con endpoints:
-  - [ ] POST /api/generate  
-  - [ ] GET /api/preguntas  
-  - [ ] GET /api/preguntas/:id  
-  - [ ] DELETE /api/preguntas/:id  
-  - [ ] DELETE /api/preguntas/tema/:tema  
-  - [ ] GET /api/temas  
-  - [ ] GET /api/health  
-- [ ] Validar entrada y manejar errores con try/catch  
+- [X] Crear router con endpoints:
+  - [X] POST /api/generate  
+  - [X] GET /api/preguntas  
+  - [x] GET /api/preguntas/:id  
+  - [x] DELETE /api/preguntas/:id  
+  - [x] DELETE /api/preguntas/tema/:tema  
+  - [x] GET /api/temas  
+  - [x] GET /api/health  
+- [x] Validar entrada y manejar errores con try/catch  
 - [ ] Devolver JSON estructurado con códigos HTTP adecuados  
 
 ### 🖥️ 2.5 backend/server.js
-- [ ] Cargar configuración del entorno  
+- [x] Cargar configuración del entorno  
 - [ ] Configurar Express y CORS  
-- [ ] Montar las rutas en /api  
-- [ ] Servir archivos del frontend  
-- [ ] Escuchar en el puerto configurado  
-- [ ] Mostrar mensaje en consola al iniciar  
+- [x] Montar las rutas en /api  
+- [x] Servir archivos del frontend  
+- [x] Escuchar en el puerto configurado  
+- [x] Mostrar mensaje en consola al iniciar  
 
 ---
 

@@ -65,11 +65,12 @@ app.use('/api', routes);
 // ------------------------
 // Servir frontend estático (solo en producción o si existe dist)
 // ------------------------
-const distPath = path.join(__dirname, '../frontend/dist');
+const distPath = path.join(__dirname, '../frontend');
 app.use(express.static(distPath));
 
+/*
 // Redirigir todas las rutas no API al index.html (SPA)
-app.get('*', (req, res, next) => {
+app.get('/*', (req, res, next) => {
   // No redirigir rutas de API
   if (req.path.startsWith('/api')) {
     return next();
@@ -83,7 +84,7 @@ app.get('*', (req, res, next) => {
     }
   });
 });
-
+*/
 // ------------------------
 // Manejo de errores global
 // ------------------------
