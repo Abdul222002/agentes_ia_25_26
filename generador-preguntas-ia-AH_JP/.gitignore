@@ -15,3 +15,8 @@ build/
 
 #logs
 #npm-debug.log*
+
+# Database files
+*.db
+*.db-shm
+*.db-wal
