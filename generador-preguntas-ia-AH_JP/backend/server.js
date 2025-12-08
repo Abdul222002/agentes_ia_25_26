@@ -20,6 +20,7 @@ const app = express();
 // ------------------------
 const PORT = process.env.PORT || 3005;
 const NODE_ENV = process.env.NODE_ENV || 'development';
+
 const ALLOWED_ORIGINS = [
   'http://localhost:5173',
   'http://127.0.0.1:5173',
@@ -30,11 +31,8 @@ const ALLOWED_ORIGINS = [
 // ------------------------
 // Middleware
 // ------------------------
-
-// CORS configurado con manejo de errores
 app.use(cors({
   origin: (origin, callback) => {
-    // Permitir peticiones sin origin (como Postman o curl)
     if (!origin || ALLOWED_ORIGINS.includes(origin)) {
       callback(null, true);
     } else {
@@ -46,11 +44,10 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-// Parser de JSON con límite de tamaño
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Middleware de logging
+// Logging
 app.use((req, res, next) => {
   const timestamp = new Date().toISOString();
   console.log(`[${timestamp}] ${req.method} ${req.path} - IP: ${req.ip}`);
@@ -63,33 +60,10 @@ app.use((req, res, next) => {
 app.use('/api', routes);
 
 // ------------------------
-// Servir frontend estático (solo en producción o si existe dist)
-// ------------------------
-const distPath = path.join(__dirname, '../frontend');
-app.use(express.static(distPath));
-
-/*
-// Redirigir todas las rutas no API al index.html (SPA)
-app.get('/*', (req, res, next) => {
-  // No redirigir rutas de API
-  if (req.path.startsWith('/api')) {
-    return next();
-  }
-  res.sendFile(path.join(distPath, 'index.html'), (err) => {
-    if (err) {
-      res.status(404).json({
-        success: false,
-        error: 'Frontend no encontrado. Ejecuta npm run build en el directorio frontend.'
-      });
-    }
-  });
-});
-*/
-// ------------------------
 // Manejo de errores global
 // ------------------------
 
-// Manejo de rutas no encontradas
+// Ruta no encontrada
 app.use((req, res) => {
   res.status(404).json({
     success: false,
@@ -99,7 +73,7 @@ app.use((req, res) => {
   });
 });
 
-// Manejo de errores general
+// Errores generales
 app.use((err, req, res, next) => {
   console.error('Error no manejado:', err);
   res.status(err.status || 500).json({
@@ -115,18 +89,15 @@ app.use((err, req, res, next) => {
 // ------------------------
 const server = app.listen(PORT, () => {
   console.log('\n' + '='.repeat(60));
-  console.log('🚀 Generador de Preguntas IA - SERVIDOR INICIADO');
+  console.log('🚀 Generador de Preguntas IA - BACKEND INICIADO');
   console.log('='.repeat(60));
-  console.log(`📡 Puerto:        ${PORT}`);
-  console.log(`🌍 Entorno:       ${NODE_ENV}`);
-  console.log(`🔗 URL Local:     http://localhost:${PORT}`);
-  console.log(`🔗 URL API:       http://localhost:${PORT}/api`);
-  console.log(`📂 Frontend:      ${distPath}`);
-  console.log(`⏰ Iniciado:      ${new Date().toLocaleString('es-ES')}`);
+  console.log(`📡 Puerto: ${PORT}`);
+  console.log(`🌍 Entorno: ${NODE_ENV}`);
+  console.log(`🔗 URL API: http://localhost:${PORT}/api`);
   console.log('='.repeat(60) + '\n');
 });
 
-// Manejo de cierre graceful
+// Shutdown limpio
 process.on('SIGTERM', () => {
   console.log('\n⚠️  SIGTERM recibido. Cerrando servidor...');
   server.close(() => {

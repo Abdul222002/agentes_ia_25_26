@@ -1,25 +1,31 @@
+# 1️⃣ Imagen base: Node.js (Debian, NO Alpine)
+FROM node:20
 
-# 1️⃣ Imagen base: Node.js
-FROM node:20-alpine
+# 2️⃣ Instalar dependencias del sistema para compilar módulos nativos
+RUN apt-get update && apt-get install -y \
+    python3 \
+    make \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
 
-# 2️⃣ Crear directorio de la app
+# 3️⃣ Crear directorio de la app
 WORKDIR /app
 
-# 3️⃣ Copiar package.json y package-lock.json
+# 4️⃣ Copiar package.json y package-lock.json
 COPY package*.json ./
 
-# 4️⃣ Instalar dependencias
-RUN npm install --production
+# 5️⃣ Instalar dependencias y recompilar módulos nativos
+RUN npm install --production && npm rebuild
 
-# 5️⃣ Copiar el resto del código
+# 6️⃣ Copiar el resto del código
 COPY . .
 
-# 6️⃣ Variables de entorno por defecto
+# 7️⃣ Variables de entorno por defecto
 ENV PORT=3005
 ENV NODE_ENV=production
 
-# 7️⃣ Exponer puerto
+# 8️⃣ Exponer puerto
 EXPOSE 3005
 
-# 8️⃣ Comando para ejecutar
+# 9️⃣ Comando para ejecutar
 CMD ["npm", "start"]

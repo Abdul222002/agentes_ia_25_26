@@ -5,6 +5,16 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+// Selección automática de entorno
+const AI_ENV = process.env.AI_ENV || "home";
+
+const URL_API =
+  AI_ENV === "school"
+    ? process.env.AI_API_URL_SCHOOL
+    : process.env.AI_API_URL_HOME;
+
+const MODEL = process.env.AI_MODEL || "mistral:instruct";
+
 // Timeout helper
 function timeout(ms) {
   return new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout de mistral')), ms));
@@ -13,22 +23,14 @@ function timeout(ms) {
 export const generarPreguntas = async (temaId, numPreguntas = 3, subtema = 'general') => {
   try {
     const MAX_PREGUNTAS = 5;
-    const URL_API = process.env.AI_API_URL || 'http://localhost:11434';
-    const MODEL = process.env.AI_MODEL || 'mistral';
 
-    // Validaciones
     if (!temaId) throw new Error('Debes indicar un tema');
-
-    if (numPreguntas < 1 || numPreguntas > MAX_PREGUNTAS){ 
+    if (numPreguntas < 1 || numPreguntas > MAX_PREGUNTAS)
       throw new Error(`numPreguntas debe estar entre 1 y ${MAX_PREGUNTAS}`);
-    }    
-
-    if (!Number.isInteger(numPreguntas)) {
+    if (!Number.isInteger(numPreguntas))
       throw new Error('numPreguntas debe ser un número entero');
-    }
     
     // Buscar tema
-    //Esto nos devolvera el objeto completo del tema en el array que nosotros definimos en prompts.js
     const tema = temas.find(t => t.id === temaId);
     if (!tema) throw new Error('Tema no válido');
 
@@ -51,7 +53,8 @@ export const generarPreguntas = async (temaId, numPreguntas = 3, subtema = 'gene
       timeout(60000)
     ]);
 
-    if (!response.ok) throw new Error(`mistral respondió con status ${response.status}`);
+    if (!response.ok)
+      throw new Error(`mistral respondió con status ${response.status}`);
 
     const textResponse = await response.text();
     const lines = textResponse.trim().split('\n');
@@ -69,25 +72,14 @@ export const generarPreguntas = async (temaId, numPreguntas = 3, subtema = 'gene
     
     let preguntasJSON;
     try {
-      // Intentar parsear directamente
       let parsed;
       try {
         parsed = JSON.parse(outputText);
       } catch (e) {
-        // Si falla, buscar JSON dentro de la respuesta
         const jsonMatch = outputText.match(/\{[\s\S]*\}/);
-        if (!jsonMatch) {
-          console.error('Respuesta raw:', outputText.substring(0, 500));
-          throw new Error('No se encontró JSON en la respuesta');
-        }
+        if (!jsonMatch) throw new Error('No se encontró JSON en la respuesta');
         
-        // Intentar parsear el JSON encontrado
-        try {
-          parsed = JSON.parse(jsonMatch[0]);
-        } catch (parseError) {
-          console.error('JSON encontrado pero no válido:', jsonMatch[0].substring(0, 300));
-          throw parseError;
-        }
+        parsed = JSON.parse(jsonMatch[0]);
       }
       
       preguntasJSON = parsed.preguntas;
@@ -128,8 +120,9 @@ export const generarPreguntas = async (temaId, numPreguntas = 3, subtema = 'gene
   }
 };
 
+// Obtener preguntas
 export const obtenerPreguntas=(tema='')=>{
-    try {
+  try {
     if (!tema) throw new Error('Debes indicar un tema');
 
     const stmt = db.prepare(`
@@ -140,7 +133,6 @@ export const obtenerPreguntas=(tema='')=>{
 
     const rows = stmt.all(tema);
 
-    // Convertir las opciones de string JSON a array
     const preguntas = rows.map(r => ({
       ...r,
       opciones: JSON.parse(r.opciones)
@@ -151,10 +143,9 @@ export const obtenerPreguntas=(tema='')=>{
     console.error('Error obtenerPreguntas:', error.message);
     throw error;
   }
-
 }
 
-
+// Eliminar pregunta
 export const eliminarPregunta = (id) => {
   try {
     if (!id || isNaN(id)) throw new Error('Debes indicar un id de pregunta válido');
@@ -177,8 +168,7 @@ export const eliminarPregunta = (id) => {
   }
 };
 
-
-
+// Limpiar tema
 export const limpiarTema = (tema) => {
   try {
     if (!tema) throw new Error('Debes indicar un tema');
@@ -192,7 +182,7 @@ export const limpiarTema = (tema) => {
 
     return {
       success: true,
-      eliminadas: result.changes, // número de filas eliminadas
+      eliminadas: result.changes,
       mensaje: result.changes
         ? `Se eliminaron ${result.changes} preguntas del tema "${tema}"`
         : `No se encontraron preguntas para el tema "${tema}"`
