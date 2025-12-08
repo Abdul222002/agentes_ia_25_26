@@ -1,0 +1,204 @@
+/* -------------------------
+   ESTILOS GENERALES
+   ------------------------- */
+:root {
+  --color-bg: #f5f5f7;
+  --color-primary: #2b6cb0;
+  --color-primary-dark: #1e4e7a;
+  --color-text: #222;
+  --color-muted: #777;
+  --color-error: #d62828;
+  --border-radius: 8px;
+  --transition: 0.2s ease-in-out;
+  --max-width: 800px;
+  --shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: system-ui, Roboto, Arial, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  display: flex;
+  justify-content: center;
+}
+
+main {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 20px auto;
+}
+
+/* -------------------------
+   CONTENEDORES Y SECCIONES
+   ------------------------- */
+header, main, footer {
+  width: 100%;
+  text-align: center;
+}
+
+.controls, .resultado {
+  background: #fff;
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 25px;
+}
+
+/* -------------------------
+   FORMULARIO
+   ------------------------- */
+label {
+  display: block;
+  margin-top: 12px;
+  font-weight: 600;
+  text-align: left;
+}
+
+select,
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: var(--border-radius);
+  border: 2px solid #ccc;
+  font-size: 1rem;
+  transition: var(--transition);
+  background: #fff;
+}
+
+/* Focus */
+select:focus,
+input[type="number"]:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+/* Validación visual */
+input[type="number"]:invalid {
+  border-color: var(--color-error);
+}
+
+/* -------------------------
+   BOTONES
+   ------------------------- */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 18px;
+  border-radius: var(--border-radius);
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  background: var(--color-primary);
+  color: #fff;
+}
+
+button:hover {
+  background: var(--color-primary-dark);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+button:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+/* -------------------------
+   PREGUNTAS (tarjetas)
+   ------------------------- */
+#preguntas-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.pregunta-card {
+  background: #fff;
+  padding: 15px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  text-align: left;
+  line-height: 1.4;
+}
+
+.pregunta-card h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.15rem;
+}
+
+.pregunta-card p {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+/* -------------------------
+   INDICADOR DE CARGA
+   ------------------------- */
+#loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  gap: 10px;
+}
+
+/* Spinner animado */
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #ccc;
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* -------------------------
+   ERRORES
+   ------------------------- */
+.error-msg {
+  margin-top: 10px;
+  color: var(--color-error);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.95rem;
+}
+
+.error-icon {
+  font-weight: bold;
+}
+
+/* -------------------------
+   RESPONSIVE
+   ------------------------- */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  .controls, .resultado {
+    padding: 15px;
+  }
+
+  button {
+    flex: 1;
+  }
+}
