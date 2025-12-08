@@ -10,6 +10,20 @@ const router = express.Router();
 // Endpoint info general
 // ------------------------
 // 🟢 GET /api → Información general de la API
+/**
+ * @openapi
+ * /api:
+ *   get:
+ *     tags: [Info]
+ *     summary: Información general de la API
+ *     responses:
+ *       200:
+ *         description: Información de la API
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/InfoApi'
+ */
 router.get('/', (req, res) => {
   res.json(getInfoApi());
 });
@@ -20,6 +34,26 @@ router.get('/', (req, res) => {
 // 🟢 POST /api/generate
 // Recibe: { tema, numPreguntas, subtema }
 // Responde: { success: true, preguntas: [...], mensaje: "..." }
+/**
+ * @openapi
+ * /api/generate:
+ *   post:
+ *     tags: [Preguntas]
+ *     summary: Generar preguntas nuevas
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/GenerarPreguntas'
+ *     responses:
+ *       200:
+ *         description: Preguntas generadas
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/GenerarPreguntasResponse'
+ */
 router.post('/generate', async (req, res) => {
   try {
     const { tema, numPreguntas, subtema } = req.body;
@@ -53,6 +87,27 @@ router.post('/generate', async (req, res) => {
 // Obtener preguntas
 // ------------------------
 // 🟢 GET /api/preguntas?tema=javascript (opcional)
+/**
+ * @openapi
+ * /api/preguntas:
+ *   get:
+ *     tags: [Preguntas]
+ *     summary: Obtener preguntas
+ *     parameters:
+ *       - name: tema
+ *         in: query
+ *         description: Tema de las preguntas
+ *         required: false
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Preguntas obtenidas
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Preguntas'
+ */
 router.get('/preguntas', (req, res) => {
   try {
     const { tema } = req.query;
@@ -65,6 +120,27 @@ router.get('/preguntas', (req, res) => {
 });
 
 // 🟢 GET /api/preguntas/:id → pregunta específica
+/**
+ * @openapi
+ * /api/preguntas/{id}:
+ *   get:
+ *     tags: [Preguntas]
+ *     summary: Obtener pregunta específica
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: ID de la pregunta
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Pregunta obtenida
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Pregunta'
+ */
 router.get('/preguntas/:id', (req, res) => {
   try {
     const { id } = req.params;
@@ -94,6 +170,27 @@ router.get('/preguntas/:id', (req, res) => {
 // Eliminar preguntas
 // ------------------------
 // 🟢 DELETE /api/preguntas/:id → eliminar por ID
+/**
+ * @openapi
+ * /api/preguntas/{id}:
+ *   delete:
+ *     tags: [Preguntas]
+ *     summary: Eliminar pregunta por ID
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: ID de la pregunta
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Pregunta eliminada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/EliminarPreguntaResponse'
+ */
 router.delete('/preguntas/:id', (req, res) => {
   try {
     const { id } = req.params;
@@ -118,6 +215,27 @@ router.delete('/preguntas/:id', (req, res) => {
 });
 
 // 🧹 DELETE /api/preguntas/tema/:tema → limpiar todas las preguntas de un tema
+/**
+ * @openapi
+ * /api/preguntas/tema/{tema}:
+ *   delete:
+ *     tags: [Preguntas]
+ *     summary: Eliminar todas las preguntas de un tema
+ *     parameters:
+ *       - name: tema
+ *         in: path
+ *         description: Tema de las preguntas
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Preguntas eliminadas
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LimpiarTemaResponse'
+ */
 router.delete('/preguntas/tema/:tema', (req, res) => {
   try {
     const { tema } = req.params;
@@ -141,6 +259,20 @@ router.delete('/preguntas/tema/:tema', (req, res) => {
 // Lista de temas
 // ------------------------
 // 🟢 GET /api/temas
+/**
+ * @openapi
+ * /api/temas:
+ *   get:
+ *     tags: [Temas]
+ *     summary: Lista de temas
+ *     responses:
+ *       200:
+ *         description: Lista de temas
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Temas'
+ */
 router.get('/temas', (req, res) => {
   try {
     const listaTemas = temas.map(t => ({
@@ -160,11 +292,25 @@ router.get('/temas', (req, res) => {
 // Health check
 // ------------------------
 // 🟢 GET /api/health → estado del servidor y conexión a Ollama
+/**
+ * @openapi
+ * /api/health:
+ *   get:
+ *     tags: [Health]
+ *     summary: Estado del servidor y conexión a Ollama
+ *     responses:
+ *       200:
+ *         description: Estado del servidor y conexión a Ollama
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/HealthCheck'
+ */
 router.get('/health', async (req, res) => {
   try {
     let ollamaStatus = 'disconnected';
     try {
-      const response = await fetch(`${AI_API_URL}/models`);
+      const response = await fetch(`${AI_API_URL}/api/tags`);
       if (response.ok) ollamaStatus = 'connected';
     } catch (err) {
       console.error('Ollama ping error:', err.message);

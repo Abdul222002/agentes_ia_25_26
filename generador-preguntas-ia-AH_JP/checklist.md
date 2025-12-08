@@ -66,11 +66,11 @@
   - [x] GET /api/temas  
   - [x] GET /api/health  
 - [x] Validar entrada y manejar errores con try/catch  
-- [ ] Devolver JSON estructurado con códigos HTTP adecuados  
+- [X] Devolver JSON estructurado con códigos HTTP adecuados  
 
 ### 🖥️ 2.5 backend/server.js
 - [x] Cargar configuración del entorno  
-- [ ] Configurar Express y CORS  
+- [X] Configurar Express y CORS  
 - [x] Montar las rutas en /api  
 - [x] Servir archivos del frontend  
 - [x] Escuchar en el puerto configurado  
@@ -108,12 +108,12 @@
 ## 🧪 Parte 4: Testing y Validación
 
 ### 🧾 4.1 validacion.http
-- [ ] Crear archivo para probar los endpoints  
-- [ ] Incluir ejemplos para todas las rutas principales  
+- [X] Crear archivo para probar los endpoints  
+- [X] Incluir ejemplos para todas las rutas principales  
 
 ### ✅ 4.2 Checklist de pruebas manuales
-- [ ] Backend levanta sin errores  
-- [ ] Ollama responde correctamente  
+- [X] Backend levanta sin errores  
+- [X] Ollama responde correctamente  
 - [ ] Frontend carga sin problemas  
 - [ ] Selector de temas funciona  
 - [ ] Generar preguntas (JavaScript, Seguridad, Normativa) funciona  
@@ -130,12 +130,12 @@
 ## 🐳 Parte 5: Dockerización
 
 ### 🐋 5.1 docker-compose.yml
-- [ ] Crear archivo para orquestar servicios  
+- [X] Crear archivo para orquestar servicios  
 
 ### 🚀 5.2 Levantar con Docker Compose
-- [ ] Ejecutar comando para construir y levantar  
-- [ ] Verificar que backend y Ollama funcionan  
-- [ ] Parar servicios correctamente  
+- [X] Ejecutar comando para construir y levantar  
+- [X] Verificar que backend y Ollama funcionan  
+- [X] Parar servicios correctamente  
 
 ---
 

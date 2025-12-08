@@ -4,23 +4,34 @@
 
 @baseURL = http://localhost:3005/api
 
+### ============================================
+### ENDPOINTS PRINCIPALES
+### ============================================
+
 ### --------------------------------------------
 ### 1. Health Check - Verificar servidor y Ollama
 ### --------------------------------------------
+# Verifica que el servidor esté funcionando y conectado a Ollama
 GET {{baseURL}}/health
 
 ### --------------------------------------------
 ### 2. Info General de la API
 ### --------------------------------------------
+# Muestra información sobre la API y sus endpoints
 GET {{baseURL}}/
 
 ### --------------------------------------------
 ### 3. Obtener lista de temas disponibles
 ### --------------------------------------------
+# Lista todos los temas configurados (javascript, python, etc.)
 GET {{baseURL}}/temas
 
+### ============================================
+### GENERAR PREGUNTAS
+### ============================================
+
 ### --------------------------------------------
-### 4. Generar preguntas - JavaScript
+### 4. Generar preguntas - JavaScript (Promesas)
 ### --------------------------------------------
 POST {{baseURL}}/generate
 Content-Type: application/json
@@ -32,7 +43,19 @@ Content-Type: application/json
 }
 
 ### --------------------------------------------
-### 5. Generar preguntas - Python
+### 5. Generar preguntas - JavaScript (Arrays)
+### --------------------------------------------
+POST {{baseURL}}/generate
+Content-Type: application/json
+
+{
+  "tema": "javascript",
+  "numPreguntas": 2,
+  "subtema": "métodos de arrays"
+}
+
+### --------------------------------------------
+### 6. Generar preguntas - Python (Decoradores)
 ### --------------------------------------------
 POST {{baseURL}}/generate
 Content-Type: application/json
@@ -44,35 +67,69 @@ Content-Type: application/json
 }
 
 ### --------------------------------------------
-### 6. Obtener TODAS las preguntas guardadas
+### 7. Generar preguntas - Python (Listas)
 ### --------------------------------------------
-GET {{baseURL}}/preguntas
+POST {{baseURL}}/generate
+Content-Type: application/json
+
+{
+  "tema": "python",
+  "numPreguntas": 3,
+  "subtema": "list comprehensions"
+}
+
+### ============================================
+### CONSULTAR PREGUNTAS
+### ============================================
 
 ### --------------------------------------------
-### 7. Obtener preguntas de un tema específico
+### 8. Obtener preguntas de JavaScript
 ### --------------------------------------------
+# Obtiene todas las preguntas guardadas del tema JavaScript
 GET {{baseURL}}/preguntas?tema=javascript
 
 ### --------------------------------------------
-### 8. Obtener pregunta por ID específico (cambiar el 1 por el ID real)
+### 9. Obtener preguntas de Python
 ### --------------------------------------------
-GET {{baseURL}}/preguntas/1
+# Obtiene todas las preguntas guardadas del tema Python
+GET {{baseURL}}/preguntas?tema=python
 
 ### --------------------------------------------
-### 9. Eliminar pregunta por ID (cambiar el 1 por el ID real)
+### 10. Obtener pregunta por ID específico
 ### --------------------------------------------
+# NOTA: Cambia el número por un ID real que hayas visto en las respuestas anteriores
+GET {{baseURL}}/preguntas/1
+
+### ============================================
+### ELIMINAR PREGUNTAS
+### ============================================
+
+### --------------------------------------------
+### 11. Eliminar pregunta por ID
+### --------------------------------------------
+# NOTA: Cambia el número por un ID real que quieras eliminar
 DELETE {{baseURL}}/preguntas/1
 
 ### --------------------------------------------
-### 10. Limpiar todas las preguntas de un tema
+### 12. Limpiar todas las preguntas de JavaScript
 ### --------------------------------------------
+# CUIDADO: Esto eliminará TODAS las preguntas de JavaScript
 DELETE {{baseURL}}/preguntas/tema/javascript
 
 ### --------------------------------------------
-### CASOS DE ERROR (para probar validaciones)
+### 13. Limpiar todas las preguntas de Python
 ### --------------------------------------------
+# CUIDADO: Esto eliminará TODAS las preguntas de Python
+DELETE {{baseURL}}/preguntas/tema/python
 
-### Error: Sin tema
+### ============================================
+### CASOS DE ERROR (para probar validaciones)
+### ============================================
+
+### --------------------------------------------
+### Error 1: Sin tema
+### --------------------------------------------
+# Debería devolver error 400: "Debes indicar el tema y el número de preguntas"
 POST {{baseURL}}/generate
 Content-Type: application/json
 
@@ -80,7 +137,21 @@ Content-Type: application/json
   "numPreguntas": 3
 }
 
-### Error: Número de preguntas fuera de rango
+### --------------------------------------------
+### Error 2: Sin numPreguntas
+### --------------------------------------------
+# Debería devolver error 400: "Debes indicar el tema y el número de preguntas"
+POST {{baseURL}}/generate
+Content-Type: application/json
+
+{
+  "tema": "javascript"
+}
+
+### --------------------------------------------
+### Error 3: Número de preguntas fuera de rango (muy alto)
+### --------------------------------------------
+# Debería devolver error 500: "numPreguntas debe estar entre 1 y 5"
 POST {{baseURL}}/generate
 Content-Type: application/json
 
@@ -89,7 +160,22 @@ Content-Type: application/json
   "numPreguntas": 10
 }
 
-### Error: Tema no válido
+### --------------------------------------------
+### Error 4: Número de preguntas fuera de rango (cero)
+### --------------------------------------------
+# Debería devolver error 500: "numPreguntas debe estar entre 1 y 5"
+POST {{baseURL}}/generate
+Content-Type: application/json
+
+{
+  "tema": "javascript",
+  "numPreguntas": 0
+}
+
+### --------------------------------------------
+### Error 5: Tema no válido
+### --------------------------------------------
+# Debería devolver error 500: "Tema no válido"
 POST {{baseURL}}/generate
 Content-Type: application/json
 
@@ -98,5 +184,14 @@ Content-Type: application/json
   "numPreguntas": 2
 }
 
-### Error: Pregunta no encontrada
+### --------------------------------------------
+### Error 6: Pregunta no encontrada
+### --------------------------------------------
+# Debería devolver error 404: "Pregunta no encontrada"
 GET {{baseURL}}/preguntas/99999
+
+### --------------------------------------------
+### Error 7: Consultar preguntas sin especificar tema
+### --------------------------------------------
+# Debería devolver error 500: "Debes indicar un tema"
+GET {{baseURL}}/preguntas
