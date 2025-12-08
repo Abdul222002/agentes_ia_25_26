@@ -1,14 +1,13 @@
 version: '3.8'
 
 services:
-  # Backend Node.js
-  backend:
+  app:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
-    container_name: generador-backend
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: generador-preguntas
     ports:
-      - "3005:3005"
+      - "1212:3005"
     environment:
       - NODE_ENV=production
       - AI_ENV=home
@@ -18,24 +17,8 @@ services:
     networks:
       - app-network
     volumes:
-      - ./backend/preguntas.db:/app/preguntas.db
+      - ./backend/db/preguntas.db:/app/backend/db/preguntas.db
     restart: unless-stopped
-
-  # Frontend
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: generador-frontend
-    ports:
-      - "5173:80"
-    environment:
-      - PORT=80
-      - HOST=0.0.0.0
-    networks:
-      - app-network
-    restart: unless-stopped
-
 
 networks:
   app-network:

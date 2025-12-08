@@ -25,8 +25,21 @@ const ALLOWED_ORIGINS = [
   'http://localhost:5173',
   'http://127.0.0.1:5173',
   'http://localhost:3005',
-  'http://127.0.0.1:3005'
+  'http://127.0.0.1:3005',
+  'http://localhost:5500',
+  'http://127.0.0.1:5500',
+  'http://localhost:5501',
+  'http://127.0.0.1:5501',
+  'http://localhost:1212',
+  'http://127.0.0.1:1212'
 ];
+
+// ------------------------
+// Servir Frontend (antes de CORS para evitar bloqueos)
+// ------------------------
+const frontendPath = path.join(__dirname, '../frontend');
+console.log('📂 Sirviendo frontend desde:', frontendPath);
+app.use(express.static(frontendPath));
 
 // ------------------------
 // Middleware
@@ -59,12 +72,7 @@ app.use((req, res, next) => {
 // ------------------------
 app.use('/api', routes);
 
-// ------------------------
-// Servir Frontend
-// ------------------------
-const frontendPath = path.join(__dirname, '../frontend');
-console.log('📂 Sirviendo frontend desde:', frontendPath);
-app.use(express.static(frontendPath));
+app.use('/api', routes);
 
 // ------------------------
 // Manejo de errores global
