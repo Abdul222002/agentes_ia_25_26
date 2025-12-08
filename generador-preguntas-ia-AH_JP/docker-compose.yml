@@ -18,7 +18,7 @@ services:
     networks:
       - app-network
     volumes:
-      - ./backend/preguntas.db:/app/preguntas.db
+      - ./backend/db/preguntas.db:/app/db/preguntas.db
     restart: unless-stopped
 
   # Frontend
@@ -35,7 +35,6 @@ services:
     networks:
       - app-network
     restart: unless-stopped
-
 
 networks:
   app-network:
