@@ -11,6 +11,7 @@ const loading = document.getElementById("loading");
 // -------------------------
 window.addEventListener("DOMContentLoaded", cargarTemas);
 
+
 // -------------------------
 // FUNCIÓN: cargarTemas()
 // GET → /api/temas
@@ -106,7 +107,7 @@ function mostrarPreguntas(preguntas = []) {
 function generarOpcionesHTML(opciones) {
   return `
     <ul>
-      ${opciones.map(o => `<li>${o}</li>`).join("")}
+      ${Array.isArray(opciones) ? opciones.map(o => `<li>${o}</li>`).join("") : "<li>Opciones no disponibles</li>"}
     </ul>
   `;
 }

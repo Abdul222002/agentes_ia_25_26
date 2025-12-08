@@ -274,12 +274,16 @@ router.delete('/preguntas/tema/:tema', (req, res) => {
  */
 router.get('/temas', (req, res) => {
   try {
+    console.log('Solicitando temas. ¿temas definido?', !!temas);
+    if (!temas) throw new Error('temas está undefined');
+
     const listaTemas = temas.map(t => ({
       id: t.id,
       nombre: t.nombre,
       descripcion: t.descripcion
     }));
 
+    console.log('Enviando temas:', listaTemas.length);
     res.json(listaTemas);
   } catch (error) {
     console.error('Error /api/temas:', error.message);
