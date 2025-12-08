@@ -1,0 +1,102 @@
+### ============================================
+### VALIDACIÓN API - Generador de Preguntas
+### ============================================
+
+@baseURL = http://localhost:3005/api
+
+### --------------------------------------------
+### 1. Health Check - Verificar servidor y Ollama
+### --------------------------------------------
+GET {{baseURL}}/health
+
+### --------------------------------------------
+### 2. Info General de la API
+### --------------------------------------------
+GET {{baseURL}}/
+
+### --------------------------------------------
+### 3. Obtener lista de temas disponibles
+### --------------------------------------------
+GET {{baseURL}}/temas
+
+### --------------------------------------------
+### 4. Generar preguntas - JavaScript
+### --------------------------------------------
+POST {{baseURL}}/generate
+Content-Type: application/json
+
+{
+  "tema": "javascript",
+  "numPreguntas": 3,
+  "subtema": "promesas y async/await"
+}
+
+### --------------------------------------------
+### 5. Generar preguntas - Python
+### --------------------------------------------
+POST {{baseURL}}/generate
+Content-Type: application/json
+
+{
+  "tema": "python",
+  "numPreguntas": 2,
+  "subtema": "decoradores"
+}
+
+### --------------------------------------------
+### 6. Obtener TODAS las preguntas guardadas
+### --------------------------------------------
+GET {{baseURL}}/preguntas
+
+### --------------------------------------------
+### 7. Obtener preguntas de un tema específico
+### --------------------------------------------
+GET {{baseURL}}/preguntas?tema=javascript
+
+### --------------------------------------------
+### 8. Obtener pregunta por ID específico (cambiar el 1 por el ID real)
+### --------------------------------------------
+GET {{baseURL}}/preguntas/1
+
+### --------------------------------------------
+### 9. Eliminar pregunta por ID (cambiar el 1 por el ID real)
+### --------------------------------------------
+DELETE {{baseURL}}/preguntas/1
+
+### --------------------------------------------
+### 10. Limpiar todas las preguntas de un tema
+### --------------------------------------------
+DELETE {{baseURL}}/preguntas/tema/javascript
+
+### --------------------------------------------
+### CASOS DE ERROR (para probar validaciones)
+### --------------------------------------------
+
+### Error: Sin tema
+POST {{baseURL}}/generate
+Content-Type: application/json
+
+{
+  "numPreguntas": 3
+}
+
+### Error: Número de preguntas fuera de rango
+POST {{baseURL}}/generate
+Content-Type: application/json
+
+{
+  "tema": "javascript",
+  "numPreguntas": 10
+}
+
+### Error: Tema no válido
+POST {{baseURL}}/generate
+Content-Type: application/json
+
+{
+  "tema": "ruby",
+  "numPreguntas": 2
+}
+
+### Error: Pregunta no encontrada
+GET {{baseURL}}/preguntas/99999

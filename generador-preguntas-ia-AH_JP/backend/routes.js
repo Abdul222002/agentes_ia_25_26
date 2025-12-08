@@ -97,11 +97,19 @@ router.get('/preguntas/:id', (req, res) => {
 router.delete('/preguntas/:id', (req, res) => {
   try {
     const { id } = req.params;
-    eliminarPregunta(id);
+    const resultado = eliminarPregunta(id);
+
+    if (!resultado.success) {
+      return res.status(404).json({
+        success: false,
+        error: resultado.mensaje,
+        codigo: 404
+      });
+    }
 
     res.json({
       success: true,
-      mensaje: 'Pregunta eliminada'
+      mensaje: resultado.mensaje
     });
   } catch (error) {
     console.error('Error DELETE /preguntas/:id:', error.message);

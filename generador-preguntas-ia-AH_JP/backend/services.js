@@ -1,26 +1,36 @@
-import { temas } from "./prompts"
+import { temas } from "./prompts.js"
 import fetch from 'node-fetch';
 import db from './db.js';
 import dotenv from 'dotenv';
+
 dotenv.config();
+
+// Selección automática de entorno
+const AI_ENV = process.env.AI_ENV || "home";
+
+const URL_API =
+  AI_ENV === "school"
+    ? process.env.AI_API_URL_SCHOOL
+    : process.env.AI_API_URL_HOME;
+
+const MODEL = process.env.AI_MODEL || "mistral:instruct";
 
 // Timeout helper
 function timeout(ms) {
-  return new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout de Ollama')), ms));
+  return new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout de mistral')), ms));
 }
 
 export const generarPreguntas = async (temaId, numPreguntas = 3, subtema = 'general') => {
   try {
     const MAX_PREGUNTAS = 5;
-    const URL_API = process.env.AI_API_URL || 'http://localhost:11434';
-    const MODEL = process.env.AI_MODEL || 'llama3.2:1b';
 
-    // Validaciones
     if (!temaId) throw new Error('Debes indicar un tema');
-
-    if (numPreguntas < 1 || numPreguntas > MAX_PREGUNTAS) throw new Error(`numPreguntas debe estar entre 1 y ${MAX_PREGUNTAS}`);
+    if (numPreguntas < 1 || numPreguntas > MAX_PREGUNTAS)
+      throw new Error(`numPreguntas debe estar entre 1 y ${MAX_PREGUNTAS}`);
+    if (!Number.isInteger(numPreguntas))
+      throw new Error('numPreguntas debe ser un número entero');
+    
     // Buscar tema
-    //Esto nos devolvera el objeto completo del tema en el array que nosotros definimos en prompts.js
     const tema = temas.find(t => t.id === temaId);
     if (!tema) throw new Error('Tema no válido');
 
@@ -29,7 +39,7 @@ export const generarPreguntas = async (temaId, numPreguntas = 3, subtema = 'gene
       .replace('{num_preguntas}', numPreguntas)
       .replace('{subtema}', subtema);
 
-    // Llamada a Ollama con timeout
+    // Llamada a mistral con timeout
     const response = await Promise.race([
       fetch(`${URL_API}/api/generate`, {
         method: 'POST',
@@ -43,17 +53,43 @@ export const generarPreguntas = async (temaId, numPreguntas = 3, subtema = 'gene
       timeout(60000)
     ]);
 
-    if (!response.ok) throw new Error(`Ollama respondió con status ${response.status}`);
+    if (!response.ok)
+      throw new Error(`mistral respondió con status ${response.status}`);
 
-    const data = await response.json();
+    const textResponse = await response.text();
+    const lines = textResponse.trim().split('\n');
+    
+    // Combinar todas las respuestas
+    let outputText = '';
+    for (const line of lines) {
+      if (line.trim()) {
+        const parsed = JSON.parse(line);
+        outputText += parsed.response || '';
+      }
+    }
 
-    // Parsear JSON de Ollama
-    const outputText = data.output || data.text || '';
+    if (!outputText) throw new Error('Respuesta de mistral vacía');
+    
     let preguntasJSON;
     try {
-      preguntasJSON = JSON.parse(outputText).preguntas;
-    } catch {
-      throw new Error('Respuesta de Ollama no es un JSON válido');
+      let parsed;
+      try {
+        parsed = JSON.parse(outputText);
+      } catch (e) {
+        const jsonMatch = outputText.match(/\{[\s\S]*\}/);
+        if (!jsonMatch) throw new Error('No se encontró JSON en la respuesta');
+        
+        parsed = JSON.parse(jsonMatch[0]);
+      }
+      
+      preguntasJSON = parsed.preguntas;
+
+      if (!Array.isArray(preguntasJSON) || preguntasJSON.length === 0) {
+        throw new Error('El JSON no contiene un array de preguntas válido');
+      }
+    } catch (error) {
+      console.error('Error al procesar respuesta de mistral:', error.message);
+      throw new Error('Respuesta de mistral no es un JSON válido: ' + error.message);
     }
 
     // Guardar en SQLite3
@@ -84,8 +120,9 @@ export const generarPreguntas = async (temaId, numPreguntas = 3, subtema = 'gene
   }
 };
 
-export const obtenerPreguntas=(tema)=>{
-    try {
+// Obtener preguntas
+export const obtenerPreguntas=(tema='')=>{
+  try {
     if (!tema) throw new Error('Debes indicar un tema');
 
     const stmt = db.prepare(`
@@ -96,7 +133,6 @@ export const obtenerPreguntas=(tema)=>{
 
     const rows = stmt.all(tema);
 
-    // Convertir las opciones de string JSON a array
     const preguntas = rows.map(r => ({
       ...r,
       opciones: JSON.parse(r.opciones)
@@ -107,10 +143,9 @@ export const obtenerPreguntas=(tema)=>{
     console.error('Error obtenerPreguntas:', error.message);
     throw error;
   }
-
 }
 
-
+// Eliminar pregunta
 export const eliminarPregunta = (id) => {
   try {
     if (!id || isNaN(id)) throw new Error('Debes indicar un id de pregunta válido');
@@ -133,8 +168,7 @@ export const eliminarPregunta = (id) => {
   }
 };
 
-
-
+// Limpiar tema
 export const limpiarTema = (tema) => {
   try {
     if (!tema) throw new Error('Debes indicar un tema');
@@ -148,7 +182,7 @@ export const limpiarTema = (tema) => {
 
     return {
       success: true,
-      eliminadas: result.changes, // número de filas eliminadas
+      eliminadas: result.changes,
       mensaje: result.changes
         ? `Se eliminaron ${result.changes} preguntas del tema "${tema}"`
         : `No se encontraron preguntas para el tema "${tema}"`

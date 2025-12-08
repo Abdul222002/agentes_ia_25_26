@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # Servicio de Ollama (LLM local)
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama-service
+    ports:
+      - "11434:11434"
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+    volumes:
+      - ollama-data:/root/.ollama
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "ollama list >/dev/null 2>&1" ]
+      interval: 10s
+      timeout: 10s
+      retries: 12
+      start_period: 30s
+    pull_policy: if_not_present
+
+  # Backend Node.js
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: generador-backend
+    ports:
+      - "3005:3005"
+    environment:
+      - NODE_ENV=production
+      - AI_ENV=home
+      - AI_API_URL_HOME=https://jarvis.ieshlanz.es
+      - AI_MODEL=mistral:instruct
+      - PORT=3005
+    networks:
+      - app-network
+    volumes:
+      - ./backend/preguntas.db:/app/preguntas.db
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  ollama-data:
