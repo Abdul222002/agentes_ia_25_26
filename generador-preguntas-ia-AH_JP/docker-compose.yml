@@ -7,7 +7,7 @@ services:
       dockerfile: backend/Dockerfile
     container_name: generador-preguntas
     ports:
-      - "3005:3005"
+      - "1212:3005"
     environment:
       - NODE_ENV=production
       - AI_ENV=home
