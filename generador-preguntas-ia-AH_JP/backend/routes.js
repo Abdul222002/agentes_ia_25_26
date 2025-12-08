@@ -1,6 +1,6 @@
 import express from 'express';
 import fetch from 'node-fetch';
-import { generarPreguntas, obtenerPreguntas, eliminarPregunta, limpiarTema } from './services.js';
+import { generarPreguntas, obtenerPreguntas, obtenerPreguntaPorId, eliminarPregunta, limpiarTema } from './services.js';
 import { temas } from './prompts.js';
 import { getInfoApi, AI_API_URL } from './utils.js';
 
@@ -144,8 +144,7 @@ router.get('/preguntas', (req, res) => {
 router.get('/preguntas/:id', (req, res) => {
   try {
     const { id } = req.params;
-    const preguntas = obtenerPreguntas(); // devuelve todas si no hay tema
-    const pregunta = preguntas.find(p => p.id == id);
+    const pregunta = obtenerPreguntaPorId(id);
 
     if (!pregunta) {
       return res.status(404).json({
@@ -247,7 +246,7 @@ router.delete('/preguntas/tema/:tema', (req, res) => {
 
     res.json({
       success: true,
-      eliminadas: resultado.changes || 0
+      eliminadas: resultado.eliminadas || 0
     });
   } catch (error) {
     console.error('Error DELETE /preguntas/tema/:tema:', error.message);

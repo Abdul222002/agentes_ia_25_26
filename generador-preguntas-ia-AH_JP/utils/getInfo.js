@@ -8,6 +8,11 @@ export const AI_API_URL =
 
 
 // Función para devolver información general de la API
+/**
+ * @author Abdul Hakim Byaz Iglesias 
+ * @description Devuelve información general de la API 
+ * @returns {Object} - Objeto con información general de la API
+ */
 export function getInfoApi() {
     return {
         name: 'API de Preguntas',

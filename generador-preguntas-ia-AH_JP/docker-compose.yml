@@ -17,7 +17,22 @@ services:
     networks:
       - app-network
     volumes:
-      - ./backend/db/preguntas.db:/app/backend/db/preguntas.db
+      - ./backend/preguntas.db:/app/preguntas.db
+    restart: unless-stopped
+
+  # Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: generador-frontend
+    ports:
+      - "5173:80"
+    environment:
+      - PORT=80
+      - HOST=0.0.0.0
+    networks:
+      - app-network
     restart: unless-stopped
 
 networks:
