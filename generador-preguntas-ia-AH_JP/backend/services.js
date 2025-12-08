@@ -38,7 +38,7 @@ export const generarPreguntas = async (temaId, numPreguntas = 3, subtema = 'gene
       throw new Error(`numPreguntas debe estar entre 1 y ${MAX_PREGUNTAS}`);
     if (!Number.isInteger(numPreguntas))
       throw new Error('numPreguntas debe ser un número entero');
-    
+
     // Buscar tema
     const tema = temas.find(t => t.id === temaId);
     if (!tema) throw new Error('Tema no válido');
@@ -67,7 +67,7 @@ export const generarPreguntas = async (temaId, numPreguntas = 3, subtema = 'gene
 
     const textResponse = await response.text();
     const lines = textResponse.trim().split('\n');
-    
+
     // Combinar todas las respuestas
     let outputText = '';
     for (const line of lines) {
@@ -78,7 +78,7 @@ export const generarPreguntas = async (temaId, numPreguntas = 3, subtema = 'gene
     }
 
     if (!outputText) throw new Error('Respuesta de mistral vacía');
-    
+
     let preguntasJSON;
     try {
       let parsed;
@@ -87,10 +87,10 @@ export const generarPreguntas = async (temaId, numPreguntas = 3, subtema = 'gene
       } catch (e) {
         const jsonMatch = outputText.match(/\{[\s\S]*\}/);
         if (!jsonMatch) throw new Error('No se encontró JSON en la respuesta');
-        
+
         parsed = JSON.parse(jsonMatch[0]);
       }
-      
+
       preguntasJSON = parsed.preguntas;
 
       if (!Array.isArray(preguntasJSON) || preguntasJSON.length === 0) {
@@ -136,7 +136,7 @@ export const generarPreguntas = async (temaId, numPreguntas = 3, subtema = 'gene
  * @returns {Promise<Array>} - Array de preguntas
  * @throws {Error} - Si ocurre un error al obtener las preguntas
  */
-export const obtenerPreguntas=(tema='')=>{
+export const obtenerPreguntas = (tema = '') => {
   try {
     if (!tema) throw new Error('Debes indicar un tema');
 
@@ -159,6 +159,36 @@ export const obtenerPreguntas=(tema='')=>{
     throw error;
   }
 }
+
+/**
+ * @author Abdul Hakim Byaz Iglesias 
+ * @description Obtiene una pregunta específica por su ID
+ * @param {number} id - ID de la pregunta
+ * @returns {Object|null} - Pregunta encontrada o null
+ * @throws {Error} - Si ocurre un error al obtener la pregunta
+ */
+export const obtenerPreguntaPorId = (id) => {
+  try {
+    if (!id || isNaN(id)) throw new Error('Debes indicar un ID válido');
+
+    const stmt = db.prepare(`
+      SELECT * FROM preguntas WHERE id = ?
+    `);
+
+    const row = stmt.get(id);
+
+    if (!row) return null;
+
+    return {
+      ...row,
+      opciones: JSON.parse(row.opciones)
+    };
+  } catch (error) {
+    console.error('Error obtenerPreguntaPorId:', error.message);
+    throw error;
+  }
+};
+
 
 /**
  * @author Abdul Hakim Byaz Iglesias 
