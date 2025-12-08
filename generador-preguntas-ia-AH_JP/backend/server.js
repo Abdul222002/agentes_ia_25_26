@@ -60,6 +60,13 @@ app.use((req, res, next) => {
 app.use('/api', routes);
 
 // ------------------------
+// Servir Frontend
+// ------------------------
+const frontendPath = path.join(__dirname, '../frontend');
+console.log('📂 Sirviendo frontend desde:', frontendPath);
+app.use(express.static(frontendPath));
+
+// ------------------------
 // Manejo de errores global
 // ------------------------
 
