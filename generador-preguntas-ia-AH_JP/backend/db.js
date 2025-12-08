@@ -5,7 +5,15 @@ import { fileURLToPath } from 'url';
 // Obtener ruta absoluta para la base de datos
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const dbPath = path.join(__dirname, 'db', 'preguntas.db');
+
+// Crear directorio db si no existe
+const dbDir = path.join(__dirname, 'db');
+import fs from 'fs';
+if (!fs.existsSync(dbDir)) {
+  fs.mkdirSync(dbDir, { recursive: true });
+}
+
+const dbPath = path.join(dbDir, 'preguntas.db');
 
 // Crear base de datos (si no existe) y conectarse
 const db = new Database(dbPath);

@@ -118,7 +118,13 @@ export const generarPreguntas = async (temaId, numPreguntas = 3, subtema = 'gene
       };
 
       const result = insert.run(info);
-      preguntasGuardadas.push({ id: result.lastInsertRowid, ...info });
+
+      // Devolvemos la pregunta con las opciones parseadas para el frontend
+      preguntasGuardadas.push({
+        id: result.lastInsertRowid,
+        ...info,
+        opciones: p.opciones // Usamos el array original, no el string
+      });
     }
 
     return preguntasGuardadas;

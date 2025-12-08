@@ -122,7 +122,18 @@ async function eliminarPregunta(id) {
     if (!res.ok) throw new Error("Error al eliminar la pregunta.");
 
     alert("Pregunta eliminada.");
-    generarPreguntas(); // recargar
+    alert("Pregunta eliminada.");
+
+    // Eliminar del DOM
+    const card = document.querySelector(`button[data-id="${id}"]`).closest('.pregunta-card');
+    if (card) {
+      card.remove();
+
+      // Si no quedan preguntas, mostrar mensaje
+      if (contPreguntas.children.length === 0) {
+        contPreguntas.innerHTML = "<p>No hay preguntas para mostrar.</p>";
+      }
+    }
 
   } catch (err) {
     mostrarError("No se pudo eliminar la pregunta.");

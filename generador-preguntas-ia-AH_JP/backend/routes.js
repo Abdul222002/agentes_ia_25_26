@@ -58,7 +58,8 @@ router.post('/generate', async (req, res) => {
   try {
     const { tema, numPreguntas, subtema } = req.body;
 
-    if (!tema || !numPreguntas) {
+    // Validar que tema y numPreguntas estén presentes (permitir 0 para que se valide el rango en services.js)
+    if (!tema || numPreguntas === null || numPreguntas === undefined) {
       return res.status(400).json({
         success: false,
         error: 'Debes indicar el tema y el número de preguntas',
