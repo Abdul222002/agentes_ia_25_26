@@ -20,6 +20,15 @@ function timeout(ms) {
   return new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout de mistral')), ms));
 }
 
+/**
+ * @author Abdul Hakim Byaz Iglesias 
+ * @description Genera preguntas basadas en un tema y un número de preguntas. 
+ * @param {string} temaId - ID del tema
+ * @param {number} numPreguntas - Número de preguntas a generar (default: 3)
+ * @param {string} subtema - Subtema de las preguntas (default: 'general')
+ * @returns {Promise<Array>} - Array de preguntas generadas 
+ * @throws {Error} - Si ocurre un error al generar las preguntas
+ */
 export const generarPreguntas = async (temaId, numPreguntas = 3, subtema = 'general') => {
   try {
     const MAX_PREGUNTAS = 5;
@@ -120,7 +129,13 @@ export const generarPreguntas = async (temaId, numPreguntas = 3, subtema = 'gene
   }
 };
 
-// Obtener preguntas
+/**
+ * @author Abdul Hakim Byaz Iglesias 
+ * @description Obtiene preguntas de la base de datos 
+ * @param {string} tema - Tema de las preguntas (default: '')
+ * @returns {Promise<Array>} - Array de preguntas
+ * @throws {Error} - Si ocurre un error al obtener las preguntas
+ */
 export const obtenerPreguntas=(tema='')=>{
   try {
     if (!tema) throw new Error('Debes indicar un tema');
@@ -145,7 +160,13 @@ export const obtenerPreguntas=(tema='')=>{
   }
 }
 
-// Eliminar pregunta
+/**
+ * @author Abdul Hakim Byaz Iglesias 
+ * @description Elimina una pregunta de la base de datos 
+ * @param {number} id - Id de la pregunta a eliminar
+ * @returns {Promise<Object>} - Objeto con el resultado de la eliminación
+ * @throws {Error} - Si ocurre un error al eliminar la pregunta
+ */
 export const eliminarPregunta = (id) => {
   try {
     if (!id || isNaN(id)) throw new Error('Debes indicar un id de pregunta válido');
@@ -168,7 +189,13 @@ export const eliminarPregunta = (id) => {
   }
 };
 
-// Limpiar tema
+/**
+ * @author Abdul Hakim Byaz Iglesias 
+ * @description Elimina todas las preguntas de un tema de la base de datos 
+ * @param {string} tema - Tema de las preguntas a eliminar
+ * @returns {Promise<Object>} - Objeto con el resultado de la eliminación
+ * @throws {Error} - Si ocurre un error al eliminar las preguntas
+ */
 export const limpiarTema = (tema) => {
   try {
     if (!tema) throw new Error('Debes indicar un tema');
