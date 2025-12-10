@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de preguntas</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="main.js" type="module" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de preguntas</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js" type="module" defer></script>
 </head>
+
 <body>
-    <header>
+  <header>
     <h1 id="project-title">Generador de preguntas</h1>
   </header>
 
@@ -22,20 +24,13 @@
         <option value="javascript">JavaScript</option>
         <option value="python">Python</option>
         <option value="sql">SQL</option>
-        <option value="html">HTML/CSS</option>
+        <option value="html_css">HTML/CSS</option>
       </select>
 
       <!-- Input número de preguntas -->
       <label for="num-preguntas">Número de preguntas (1-5):</label>
-      <input
-        id="num-preguntas"
-        name="num-preguntas"
-        type="number"
-        min="1"
-        max="5"
-        value="3"
-        aria-describedby="num-help"
-      />
+      <input id="num-preguntas" name="num-preguntas" type="number" min="1" max="5" value="3"
+        aria-describedby="num-help" />
       <small id="num-help">Introduce un número entre 1 y 5.</small>
 
       <!-- Botones -->
@@ -44,11 +39,8 @@
         <button id="limpiar-btn" type="button">Limpiar</button>
       </div>
 
-      <!-- Indicador de carga -->
-      <div id="loading" role="status" aria-live="polite" hidden>
-        <!-- Puedes sustituir por un spinner SVG en CSS/HTML más adelante -->
-        <span class="spinner" aria-hidden="true">⏳</span>
-        <span class="loading-text">Generando...</span>
+      <!-- Status Container -->
+      <div id="status-container" role="status" aria-live="polite" class="hidden">
       </div>
     </section>
 
@@ -56,9 +48,9 @@
     <section aria-labelledby="preguntas-title" class="resultado">
       <h2 id="preguntas-title">Preguntas generadas</h2>
       <div id="preguntas-container" aria-live="polite">
-        <!-- Aquí el script añadirá las preguntas -->
       </div>
     </section>
   </main>
 </body>
+
 </html>

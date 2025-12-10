@@ -1,21 +1,21 @@
-// ELEMENTOS DEL DOM
+// DOM
 const selectTema = document.getElementById("tema-select");
 const inputNum = document.getElementById("num-preguntas");
 const btnGenerar = document.getElementById("generar-btn");
 const btnLimpiar = document.getElementById("limpiar-btn");
 const contPreguntas = document.getElementById("preguntas-container");
-const loading = document.getElementById("loading");
+const statusContainer = document.getElementById("status-container");
 
-// -------------------------
 // Cargar temas al iniciar
-// -------------------------
 window.addEventListener("DOMContentLoaded", cargarTemas);
 
-
-// -------------------------
-// FUNCIÓN: cargarTemas()
-// GET → /api/temas
-// -------------------------
+/**
+ * @author Juan Pérez Medina 
+ * @description Carga la lista de temas desde la API y los inserta en el selector del DOM.
+ * @param {void} 
+ * @returns {Promise<void>} - No retorna datos, solo modifica el DOM.
+ * @throws {Error} - Lanza un error si la solicitud a la API falla.
+ */
 async function cargarTemas() {
   try {
     const res = await fetch("/api/temas");
@@ -38,20 +38,25 @@ async function cargarTemas() {
   }
 }
 
-// -------------------------
-// FUNCIÓN: generarPreguntas()
-// POST → /api/generate
-// -------------------------
+/**
+ * @author Juan Pérez Medina 
+ * @description Genera preguntas según el tema seleccionado y la cantidad indicada, consultando la API.
+ * @param {void}
+ * @returns {Promise<void>} - No retorna datos, pero muestra las preguntas en pantalla.
+ * @throws {Error} - Lanza un error si la API no puede generar las preguntas.
+ */
 async function generarPreguntas() {
   const tema = selectTema.value;
   const num = parseInt(inputNum.value);
 
   // Validaciones
-  if (!tema) return mostrarError("Selecciona un tema para continuar.");
-  if (isNaN(num) || num < 1 || num > 5)
+  if (!tema){
+    return mostrarError("Selecciona un tema para continuar.")
+  };
+  if (isNaN(num) || num < 1 || num > 5){
     return mostrarError("El número de preguntas debe estar entre 1 y 5.");
-
-  mostrarCarga(true);
+  }
+  mostrarEstado(1);
 
   try {
     const res = await fetch("/api/generate", {
@@ -63,19 +68,28 @@ async function generarPreguntas() {
     if (!res.ok) throw new Error("Error al generar preguntas.");
 
     const data = await res.json();
+    mostrarEstado(2);
     mostrarPreguntas(data.preguntas);
 
   } catch (err) {
-    mostrarError("No se pudieron generar las preguntas.");
+    mostrarEstado(3, "No se pudieron generar las preguntas.");
     console.error(err);
   } finally {
-    mostrarCarga(false);
+    btnGenerar.disabled = false;
   }
 }
+/**
+ * @author Juan Pérez Medina
+ * @description Mostrar 
+ */
 
-// -------------------------
-// FUNCIÓN: mostrarPreguntas(preguntas)
-// -------------------------
+
+/**
+ * @author Juan Pérez Medina 
+ * @description Muestra en pantalla una lista de preguntas dentro de contenedores dinámicos.
+ * @param {Array} preguntas - Lista de objetos pregunta a renderizar.
+ * @returns {void} - Solo modifica el DOM para mostrar preguntas.
+ */
 function mostrarPreguntas(preguntas = []) {
   contPreguntas.innerHTML = "";
 
@@ -112,16 +126,17 @@ function generarOpcionesHTML(opciones) {
   `;
 }
 
-// -------------------------
-// FUNCIÓN: eliminarPregunta(id)
-// DELETE → /api/preguntas/{id}
-// -------------------------
+/**
+ * @author Juan Pérez Medina 
+ * @description Elimina una pregunta mediante una solicitud DELETE y actualiza la interfaz.
+ * @param {number|string} id - ID de la pregunta a eliminar.
+ * @returns {Promise<void>} - No retorna datos, solo actualiza el DOM.
+ * @throws {Error} - Lanza un error si ocurre un problema al intentar eliminar la pregunta.
+ */
 async function eliminarPregunta(id) {
   try {
     const res = await fetch(`/api/preguntas/${id}`, { method: "DELETE" });
     if (!res.ok) throw new Error("Error al eliminar la pregunta.");
-
-    alert("Pregunta eliminada.");
     alert("Pregunta eliminada.");
 
     // Eliminar del DOM
@@ -141,38 +156,80 @@ async function eliminarPregunta(id) {
   }
 }
 
-// -------------------------
-// FUNCIÓN: limpiar()
-// DELETE opcional por tema
-// -------------------------
+/**
+ * @author Juan Pérez Medina 
+ * @description Limpia el contenedor de preguntas y restablece los valores del formulario.
+ * @param {void}
+ * @returns {void} - Resetea los valores de la interfaz.
+ */
 async function limpiar() {
   contPreguntas.innerHTML = "";
   inputNum.value = "1";
   selectTema.value = "";
+}
 
-  // Si se desea limpiar preguntas del tema actual:
-  /*
-  if (selectTema.value) {
-    try {
-      await fetch(`/api/preguntas/tema/${selectTema.value}`, { method: "DELETE" });
-    } catch (err) {
-      console.error("Error limpiando preguntas del tema.");
-    }
+// GESTIÓN DE ESTADOS
+function mostrarEstado(tipo, mensaje = "") {
+  statusContainer.classList.remove("hidden");
+
+  // Limpiar contenedor usando DOM
+  while (statusContainer.firstChild) {
+    statusContainer.removeChild(statusContainer.firstChild);
   }
-  */
+
+  const wrapper = document.createElement("div");
+
+  switch (tipo) {
+    case 1: // Loading
+      wrapper.className = "status-loading";
+
+      const spinner = document.createElement("div");
+      spinner.className = "spinner";
+      spinner.textContent = "⌛";
+
+      const loadingText = document.createElement("span");
+      loadingText.textContent = "Generando...";
+
+      wrapper.appendChild(spinner);
+      wrapper.appendChild(loadingText);
+
+      btnGenerar.disabled = true;
+      break;
+
+    case 2: // Success
+      wrapper.className = "status-success";
+
+      const successText = document.createElement("span");
+      successText.textContent = "✅ Generado correctamente";
+
+      wrapper.appendChild(successText);
+
+      // Ocultar mensaje de éxito después de 3 segundos
+      setTimeout(() => {
+        if (statusContainer.contains(wrapper)) {
+          statusContainer.classList.add("hidden");
+        }
+      }, 3000);
+      break;
+
+    case 3: // Error
+      wrapper.className = "status-error";
+
+      const errorText = document.createElement("span");
+      errorText.textContent = `❌ ${mensaje || "Ha ocurrido un error"}`;
+
+      wrapper.appendChild(errorText);
+      break;
+
+    default:
+      statusContainer.classList.add("hidden");
+      return;
+  }
+
+  statusContainer.appendChild(wrapper);
 }
 
-// -------------------------
-// INDICADOR DE CARGA
-// -------------------------
-function mostrarCarga(estado) {
-  loading.hidden = !estado;
-  btnGenerar.disabled = estado;
-}
-
-// -------------------------
 // MENSAJES DE ERROR
-// -------------------------
 function mostrarError(msg) {
   // Eliminar errores previos
   removeErrors();
@@ -190,16 +247,14 @@ function removeErrors() {
   document.querySelectorAll(".error-msg").forEach(e => e.remove());
 }
 
-// -------------------------
 // EVENT LISTENERS
-// -------------------------
 btnGenerar.addEventListener("click", generarPreguntas);
 btnLimpiar.addEventListener("click", limpiar);
-selectTema.addEventListener("change", () => {
-  // opcional: cargar preguntas del tema
-});
 inputNum.addEventListener("input", () => {
   const n = parseInt(inputNum.value);
-  if (n < 1 || n > 5) inputNum.setCustomValidity("Debe ser entre 1 y 5");
-  else inputNum.setCustomValidity("");
+  if (n < 1 || n > 5){
+    inputNum.setCustomValidity("Debe ser entre 1 y 5");
+  }else{
+    inputNum.setCustomValidity("")
+  };
 });

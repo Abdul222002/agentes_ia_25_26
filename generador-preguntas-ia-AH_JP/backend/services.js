@@ -48,6 +48,8 @@ export const generarPreguntas = async (temaId, numPreguntas = 3, subtema = 'gene
       .replace('{num_preguntas}', numPreguntas)
       .replace('{subtema}', subtema);
 
+    console.log("DEBUG: promptFinal sent to LLM:", promptFinal);
+
     // Llamada a mistral con timeout
     const response = await Promise.race([
       fetch(`${URL_API}/api/generate`, {
@@ -95,6 +97,12 @@ export const generarPreguntas = async (temaId, numPreguntas = 3, subtema = 'gene
 
       if (!Array.isArray(preguntasJSON) || preguntasJSON.length === 0) {
         throw new Error('El JSON no contiene un array de preguntas válido');
+      }
+
+      // Asegurarse de que no haya más preguntas de las solicitadas
+      if (preguntasJSON.length > numPreguntas) {
+        console.log(`WARN: LLM generó ${preguntasJSON.length} preguntas, se solicitaron ${numPreguntas}. Truncando...`);
+        preguntasJSON = preguntasJSON.slice(0, numPreguntas);
       }
     } catch (error) {
       console.error('Error al procesar respuesta de mistral:', error.message);

@@ -81,27 +81,27 @@
 ## 🎨 Parte 3: Frontend - JavaScript Vanilla
 
 ### 🧩 3.1 index.html
-- [ ] Incluir título, selector de tema, input de número, botones y contenedor  
-- [ ] Añadir indicador de carga  
-- [ ] Vincular correctamente los archivos CSS y JS  
+- [x] Incluir título, selector de tema, input de número, botones y contenedor  
+- [x] Añadir indicador de carga  
+- [x] Vincular correctamente los archivos CSS y JS  
 
 ### 🎨 3.2 style.css
-- [ ] Definir estilos básicos para el cuerpo y contenedor principal  
-- [ ] Estilizar selector, inputs y botones  
-- [ ] Añadir estilo para tarjetas de preguntas  
-- [ ] Incluir estilos para estado de carga y errores  
-- [ ] Asegurar diseño responsive  
-- [ ] No usar frameworks CSS  
+- [x] Definir estilos básicos para el cuerpo y contenedor principal  
+- [x] Estilizar selector, inputs y botones  
+- [x] Añadir estilo para tarjetas de preguntas  
+- [x] Incluir estilos para estado de carga y errores  
+- [x] Asegurar diseño responsive  
+- [x] No usar frameworks CSS  
 
 ### ⚡ 3.3 main.js
-- [ ] Crear función para cargar temas desde la API  
-- [ ] Crear función para generar preguntas  
-- [ ] Crear función para mostrar preguntas  
-- [ ] Crear función para eliminar una pregunta  
-- [ ] Crear función para limpiar preguntas del tema  
-- [ ] Añadir eventos para botones y validaciones  
-- [ ] Implementar manejo de errores y mensajes al usuario  
-- [ ] Mostrar y ocultar indicador de carga correctamente  
+- [x] Crear función para cargar temas desde la API  
+- [x] Crear función para generar preguntas  
+- [x] Crear función para mostrar preguntas  
+- [x] Crear función para eliminar una pregunta  
+- [x] Crear función para limpiar preguntas del tema  
+- [x] Añadir eventos para botones y validaciones  
+- [x] Implementar manejo de errores y mensajes al usuario  
+- [x] Mostrar y ocultar indicador de carga correctamente  
 
 ---
 
@@ -114,16 +114,16 @@
 ### ✅ 4.2 Checklist de pruebas manuales
 - [X] Backend levanta sin errores  
 - [X] Ollama responde correctamente  
-- [ ] Frontend carga sin problemas  
-- [ ] Selector de temas funciona  
-- [ ] Generar preguntas (JavaScript, Seguridad, Normativa) funciona  
+- [x] Frontend carga sin problemas  
+- [x] Selector de temas funciona  
+- [x] Generar preguntas (JavaScript, Seguridad, Normativa) funciona  
 - [ ] Preguntas se guardan en la base de datos  
-- [ ] Preguntas se muestran en el frontend  
-- [ ] Eliminar pregunta funciona  
-- [ ] Limpiar tema funciona  
-- [ ] Validaciones bloquean datos incorrectos  
-- [ ] Mensajes de error claros si Ollama no responde  
-- [ ] Indicador de carga visible y funcional  
+- [x] Preguntas se muestran en el frontend  
+- [x] Eliminar pregunta funciona  
+- [x] Limpiar tema funciona  
+- [x] Validaciones bloquean datos incorrectos  
+- [x] Mensajes de error claros si Ollama no responde  
+- [x] Indicador de carga visible y funcional  
 
 ---
 

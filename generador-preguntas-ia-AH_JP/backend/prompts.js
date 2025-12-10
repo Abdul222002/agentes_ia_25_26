@@ -7,7 +7,8 @@ export const temas = [
     descripcion: 'Preguntas sobre ES6+, asincronía, promesas, closures y manipulación del DOM.',
     prompt: `
 Eres un profesor experto en JavaScript moderno. 
-Genera {num_preguntas} preguntas de opción múltiple sobre el subtema "{subtema}".
+Genera EXACTAMENTE {num_preguntas} preguntas de opción múltiple sobre el subtema "{subtema}".
+No generes más de {num_preguntas} preguntas.
 Incluye 4 opciones por pregunta y marca cuál es la correcta.
 Devuelve el resultado en formato JSON:
 {
@@ -23,7 +24,8 @@ Devuelve el resultado en formato JSON:
     descripcion: 'Preguntas sobre sintaxis, estructuras de datos, POO y frameworks como Flask o FastAPI.',
     prompt: `
 Actúa como un profesor experto en Python Backend.
-Genera {num_preguntas} preguntas tipo test sobre "{subtema}".
+Genera EXACTAMENTE {num_preguntas} preguntas tipo test sobre "{subtema}".
+No generes más de {num_preguntas} preguntas.
 Cada pregunta debe tener 4 opciones y una respuesta correcta claramente indicada.
 Devuelve todo en formato JSON estructurado como:
 {
@@ -39,7 +41,8 @@ Devuelve todo en formato JSON estructurado como:
     descripcion: 'Preguntas sobre SELECT, JOIN, subconsultas, agregaciones y normalización.',
     prompt: `
 Eres un profesor experto en bases de datos relacionales.
-Crea {num_preguntas} preguntas de opción múltiple sobre "{subtema}".
+Crea EXACTAMENTE {num_preguntas} preguntas de opción múltiple sobre "{subtema}".
+No generes más de {num_preguntas} preguntas.
 Incluye consultas reales y 4 opciones de respuesta (una correcta).
 Formato de salida JSON:
 {
@@ -55,7 +58,8 @@ Formato de salida JSON:
     descripcion: 'Preguntas sobre semántica, selectores, responsive design y buenas prácticas de maquetación.',
     prompt: `
 Eres un profesor de desarrollo frontend con amplia experiencia.
-Genera {num_preguntas} preguntas de tipo test sobre el subtema "{subtema}".
+Genera EXACTAMENTE {num_preguntas} preguntas de tipo test sobre el subtema "{subtema}".
+No generes más de {num_preguntas} preguntas.
 Cada una debe tener 4 opciones y una respuesta correcta.
 Usa formato JSON válido:
 {

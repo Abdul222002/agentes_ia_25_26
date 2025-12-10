@@ -3,7 +3,8 @@
    ------------------------- */
 :root {
   --color-bg: #eef2f5;
-  --color-primary: #4f46e5; /* Indigo vibrant */
+  --color-primary: #4f46e5;
+  /* Indigo vibrant */
   --color-primary-dark: #4338ca;
   --color-accent: #818cf8;
   --color-text: #1f2937;
@@ -11,11 +12,11 @@
   --color-white: #ffffff;
   --color-error: #ef4444;
   --color-success: #10b981;
-  
+
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  
+
   --radius: 12px;
   --font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
@@ -50,9 +51,10 @@ h1 {
   color: var(--color-primary);
   margin: 0;
   letter-spacing: -0.02em;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   background: -webkit-linear-gradient(45deg, var(--color-primary), var(--color-accent));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -78,7 +80,8 @@ main {
 /* -------------------------
    CARDS (Controls & Results)
    ------------------------- */
-.controls, .resultado {
+.controls,
+.resultado {
   background: var(--color-white);
   padding: 30px;
   border-radius: var(--radius);
@@ -86,7 +89,8 @@ main {
   transition: transform 0.2s ease;
 }
 
-.controls:hover, .resultado:hover {
+.controls:hover,
+.resultado:hover {
   transform: translateY(-2px);
 }
 
@@ -101,7 +105,8 @@ label {
   color: var(--color-text);
 }
 
-select, input[type="number"] {
+select,
+input[type="number"] {
   width: 100%;
   padding: 12px 16px;
   border-radius: var(--radius);
@@ -109,10 +114,12 @@ select, input[type="number"] {
   background-color: #f9fafb;
   font-size: 1rem;
   transition: all 0.2s;
-  appearance: none; /* Modern reset */
+  appearance: none;
+  /* Modern reset */
 }
 
-select:focus, input:focus {
+select:focus,
+input:focus {
   outline: none;
   border-color: var(--color-primary);
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
@@ -200,8 +207,15 @@ button:disabled {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .pregunta-card h3 {
@@ -240,23 +254,93 @@ button:disabled {
 /* -------------------------
    LOADING & ERROR
    ------------------------- */
-#loading {
-  text-align: center;
-  margin-top: 20px;
-  font-weight: 600;
+/* -------------------------
+   STATUS INDICATORS
+   ------------------------- */
+#status-container {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  min-height: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Spinner */
+.status-loading {
   color: var(--color-primary);
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
+  margin: 0 auto;
+  /* Fallback */
 }
 
 .spinner {
-  display: inline-block;
-  animation: spin 1s linear infinite;
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(79, 70, 229, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--color-primary);
+  animation: spin 0.8s ease-in-out infinite;
 }
 
-@keyframes spin { 100% { transform: rotate(360deg); } }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Success */
+.status-success {
+  color: var(--color-success);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 auto;
+  animation: slideUp 0.3s ease-out;
+}
+
+.icon-success {
+  font-size: 1.4rem;
+}
+
+/* Error */
+.status-error {
+  color: var(--color-error);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 auto;
+  animation: slideUp 0.3s ease-out;
+}
+
+.icon-error {
+  font-size: 1.4rem;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 .error-msg {
   background: #fef2f2;
@@ -272,7 +356,15 @@ button:disabled {
 
 /* Responsive */
 @media (max-width: 640px) {
-  body { padding: 20px 15px; }
-  .actions { flex-direction: column; }
-  h1 { font-size: 2rem; }
+  body {
+    padding: 20px 15px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
 }
