@@ -1,35 +1,35 @@
 # ✅ Checklist del Proyecto — Generador de Preguntas con Ollama
 
-## 🎬 Parte 1: Configuración inicial del proyecto
+## 🎬 Parte 1: Configuración inicial del proyecto (Abdul)
 
-### 🏗 1.1 Inicialización del proyecto
+### 🏗 1.1 Inicialización del proyecto (Abdul)
 - [X] Crear carpeta del proyecto  
 - [X] Inicializar repositorio Git  
 - [X] Crear rama de trabajo para desarrollo  
 
-### 📦 1.2 Backend - Instalación de dependencias
+### 📦 1.2 Backend - Instalación de dependencias (Abdul)
 - [X] Completar los datos del package.json (nombre, descripción, autor)  
 - [X] Instalar dependencias: express, dotenv, better-sqlite3, cors  
 - [X] Instalar dependencia de desarrollo: nodemon  
 - [X] Entender para qué sirve cada paquete  
 
-### ⚙ 1.3 Configuración de package.json (backend)
+### ⚙ 1.3 Configuración de package.json (backend) (Abdul)
 
 - [X] Añadir tipo de módulo (ES Modules)  
 - [X] Configurar scripts de desarrollo y ejecución  
 
-### 🔧 1.4 Archivos de configuración
+### 🔧 1.4 Archivos de configuración (Abdul)
 
 - [X] Crear archivos .env, .env.example y .gitignore  
 
-### 🖥️ 1.5 Frontend - Estructura básica
+### 🖥️ 1.5 Frontend - Estructura básica (Abdul)
 
 - [X] Crear carpeta frontend  
 - [X] Crear index.html con estructura básica y div principal  
 - [X] Enlazar style.css y main.js  
 - [X] Crear archivos vacíos style.css y main.js  
   
-### 🗄️ 1.6 Base de datos SQLite3
+### 🗄️ 1.6 Base de datos SQLite3 (Abdul)
 
 - [X] Crear carpeta backend/db  
 - [X] No crear manualmente preguntas.db  
@@ -37,26 +37,26 @@
 
 ---
 
-## 💻 Parte 2: Backend - Implementación
+## 💻 Parte 2: Backend - Implementación (Abdul)
 
-### 🧱 2.1 backend/db.js
+### 🧱 2.1 backend/db.js (Abdul)
 
 - [X] Inicializar base de datos con better-sqlite3  
 - [X] Crear tablas necesarias  
 
-### 📝 2.2 backend/prompts.js
+### 📝 2.2 backend/prompts.js (Abdul)
 - [x] Definir al menos tres temas  
 - [x] Cada tema debe tener: id, nombre, descripción y prompt  
 - [x] Incluir placeholders para número de preguntas y subtema  
 
-### ⚙ 2.3 backend/services.js
+### ⚙ 2.3 backend/services.js (Abdul)
 - [x] Crear función para generar preguntas usando Ollama  
 - [x] Crear función para obtener preguntas de un tema  
 - [x] Crear función para eliminar una pregunta  
 - [x] Crear función para limpiar preguntas por tema  
 - [x] Implementar validaciones y manejo de errores (timeouts, rangos, temas válidos)  
 
-### 🌐 2.4 backend/routes.js
+### 🌐 2.4 backend/routes.js (Abdul)
 - [X] Crear router con endpoints:
   - [X] POST /api/generate  
   - [X] GET /api/preguntas  
@@ -68,7 +68,7 @@
 - [x] Validar entrada y manejar errores con try/catch  
 - [X] Devolver JSON estructurado con códigos HTTP adecuados  
 
-### 🖥️ 2.5 backend/server.js
+### 🖥️ 2.5 backend/server.js (Abdul)
 - [x] Cargar configuración del entorno  
 - [X] Configurar Express y CORS  
 - [x] Montar las rutas en /api  
@@ -105,9 +105,9 @@
 
 ---
 
-## 🧪 Parte 4: Testing y Validación
+## 🧪 Parte 4: Testing y Validación 
 
-### 🧾 4.1 validacion.http
+### 🧾 4.1 validacion.http (Abdul)
 - [X] Crear archivo para probar los endpoints  
 - [X] Incluir ejemplos para todas las rutas principales  
 
@@ -127,7 +127,7 @@
 
 ---
 
-## 🐳 Parte 5: Dockerización
+## 🐳 Parte 5: Dockerización (Juan y Abdul)
 
 ### 🐋 5.1 docker-compose.yml
 - [X] Crear archivo para orquestar servicios  
@@ -139,7 +139,7 @@
 
 ---
 
-## 📖 Parte 6: Documentación (README.md)
+## 📖 Parte 6: Documentación (README.md) (Juan y Abdul)
 
 - [ ] Incluir descripción general y propósito del proyecto  
 - [ ] Listar requisitos (Node.js, Docker, Ollama, etc.)  
@@ -150,7 +150,7 @@
 
 ---
 
-## 🌿 Parte 7: Git y Control de Versiones
+## 🌿 Parte 7: Git y Control de Versiones (Juan y Abdul) 
 
 - [ ] Hacer commits incrementales y descriptivos  
 - [ ] Usar mensajes de commit claros y coherentes  
