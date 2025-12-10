@@ -8,7 +8,7 @@ Aplicación web que utiliza **Inteligencia Artificial** (Ollama + Mistral) para 
 
 ---
 
-## 🏗️ Estructura del Proyecto
+# 1. Estructura del Proyecto
 
 ```
 generador-preguntas-ia-AH_JP/
@@ -30,6 +30,8 @@ generador-preguntas-ia-AH_JP/
 ```
 
 ---
+
+# 2. BACKEND
 
 ## 💻 BACKEND - Componentes Principales
 
@@ -53,6 +55,8 @@ db.exec(`
 `);
 ```
 
+- Descripción: En esta parte es donde se define la base de datos.
+
 ### 📝 `prompts.js` - Temas
 
 Define los temas y prompts para la IA:
@@ -71,7 +75,11 @@ export const temas = [
 
 **Placeholders**: `{num_preguntas}`, `{subtema}`
 
-### ⚙️ `services.js` - Lógica de Negocio
+- Descripción: En esta parte es donde le definimos los temas y los prompts para la IA.  
+
+---
+
+### ⚙️ `services.js` - Lógica de la Aplicación
 
 #### Función principal: `generarPreguntas()`
 
@@ -95,6 +103,9 @@ const URL_API = AI_ENV === "school"
   ? process.env.AI_API_URL_SCHOOL    // Ollama local
   : process.env.AI_API_URL_HOME;     // Ollama remoto
 ```
+
+- Descripción: En esta parte es donde se define la lógica de la aplicación.
+
 
 #### Otras funciones:
 
@@ -146,7 +157,9 @@ Content-Type: application/json
 }
 ```
 
-### 🖥️ `server.js` - Servidor Express
+- Descripción: En esta parte es donde se define la API REST.
+
+### 🖥️ `server.js` - Servidor Express 
 
 Configura Express con CORS, parseo JSON y sirve el frontend:
 
@@ -162,6 +175,7 @@ app.listen(PORT, () => {
   console.log(`🚀 Backend en http://localhost:${PORT}/api`);
 });
 ```
+- Descripción: En esta parte es donde se configura el servidor.
 
 ---
 
@@ -177,53 +191,7 @@ app.listen(PORT, () => {
 }
 ```
 
----
 
-## 🚀 Instalación y Uso
-
-### Opción 1: Local
-
-```bash
-# 1. Instalar dependencias
-cd backend
-npm install
-
-# 2. Configurar .env
-cp .env.example .env
-# Editar .env con tus valores
-
-# 3. Iniciar servidor
-npm run dev    # Desarrollo
-npm start      # Producción
-```
-
-### Opción 2: Docker
-
-```bash
-# Levantar servicios
-docker compose up -d
-
-# Ver logs
-docker compose logs -f backend
-
-# Detener
-docker compose down
-```
-
----
-
-## 🔐 Variables de Entorno
-
-```env
-PORT=3005
-NODE_ENV=production
-AI_ENV=home                                    # "home" o "school"
-AI_API_URL_HOME=https://jarvis.ieshlanz.es   # Ollama remoto
-AI_API_URL_SCHOOL=http://localhost:11434      # Ollama local
-AI_MODEL=mistral:instruct
-```
-
----
 
 ## 🎯 Flujo de Trabajo
 
@@ -238,77 +206,285 @@ AI_MODEL=mistral:instruct
 
 ---
 
-## 🧪 Testing
 
-Usa el archivo `validacion.http` con REST Client (VS Code) o Postman:
+# 4 Validaciónes
 
+# 4.1 📸 Capturas de Pantalla - Validación de la API
+
+## 📋 Archivo `validacion.http`
+
+Este archivo contiene todas las peticiones HTTP para probar los endpoints de la API. Se usa con la extensión **REST Client** de VS Code.
+
+---
+
+## 🖼️ Capturas de Validación
+
+### 1️⃣ **deleteById.png** - Eliminar pregunta por ID
 ```http
-### Health Check
-GET http://localhost:3005/api/health
+DELETE http://localhost:3005/api/preguntas/1
+```
+**Respuesta esperada:**
+```json
+{
+  "success": true,
+  "mensaje": "Pregunta eliminada correctamente"
+}
+```
+![Eliminar pregunta por ID](public/img/deleteById.png)
 
-### Generar preguntas
+---
+
+### 2️⃣ **deleteAll.png** - Eliminar todas las preguntas de un tema
+```http
+DELETE http://localhost:3005/api/preguntas/tema/javascript
+```
+**Respuesta esperada:**
+```json
+{
+  "success": true,
+  "eliminadas": 5,
+  "mensaje": "Se eliminaron 5 preguntas del tema javascript"
+}
+```
+![Eliminar todas las preguntas de un tema](public/img/deleteAll.png)
+
+---
+
+### 3️⃣ **errorFueraRango.png** - Error: Número de preguntas fuera de rango
+```http
 POST http://localhost:3005/api/generate
 Content-Type: application/json
 
 {
   "tema": "javascript",
-  "numPreguntas": 2,
-  "subtema": "promesas"
+  "numPreguntas": 10
 }
-
-### Obtener preguntas
-GET http://localhost:3005/api/preguntas?tema=javascript
 ```
-
----
-
-## 🐛 Manejo de Errores
-
-**Códigos HTTP**:
-- `200 OK` - Operación exitosa
-- `400 Bad Request` - Datos inválidos
-- `404 Not Found` - Recurso no encontrado
-- `500 Internal Server Error` - Error del servidor
-
-**Formato de error**:
+**Respuesta esperada:**
 ```json
 {
   "success": false,
-  "error": "Descripción del error",
-  "codigo": 500
+  "error": "numPreguntas debe estar entre 1 y 5",
+  "codigo": 400
 }
 ```
+![Error fuera de rango](public/img/errorFueraRango.png)
 
 ---
 
-## 🔮 Futuras Mejoras
+### 4️⃣ **errorSinTema.png** - Error: Falta el parámetro tema
+```http
+POST http://localhost:3005/api/generate
+Content-Type: application/json
 
-- [ ] Autenticación de usuarios
-- [ ] Exportar preguntas a PDF
-- [ ] Estadísticas de uso
-- [ ] Más modelos de IA
-- [ ] Integración con LMS (Moodle)
-
----
-
-## 👥 Autores
-
-**Abdul Hadi** y **José Pablo** - DAIA 2024/2025
-
----
-
-## 🆘 Troubleshooting
-
-**Problema**: `"ollama": "disconnected"`
-- Verifica que Ollama esté corriendo
-- Revisa la URL en `.env`
-- Comprueba: `GET /api/health`
-
-**Problema**: Error al generar preguntas
-- Revisa logs: `docker compose logs backend`
-- Verifica que el modelo esté disponible en Ollama
-- Comprueba timeout (60s por defecto)
+{
+  "numPreguntas": 3
+}
+```
+**Respuesta esperada:**
+```json
+{
+  "success": false,
+  "error": "Debes indicar el tema y el número de preguntas",
+  "codigo": 400
+}
+```
+![Error sin tema](public/img/errorSinTema.png)
 
 ---
 
-**¡Generador de Preguntas con IA! 🎓✨**
+### 5️⃣ **generate.png** - Generar preguntas exitosamente
+```http
+POST http://localhost:3005/api/generate
+Content-Type: application/json
+
+{
+  "tema": "javascript",
+  "numPreguntas": 3,
+  "subtema": "promesas y async/await"
+}
+```
+**Respuesta esperada:**
+```json
+{
+  "success": true,
+  "preguntas": [
+    {
+      "id": 1,
+      "tema": "javascript",
+      "subtema": "promesas y async/await",
+      "pregunta": "¿Qué devuelve una función async?",
+      "opciones": "[\"Una promesa\",\"Un callback\",\"Undefined\",\"Un observable\"]",
+      "correcta": "Una promesa"
+    }
+  ],
+  "mensaje": "Se generaron 3 preguntas para el tema \"javascript\""
+}
+```
+![Generar preguntas](public/img/generate.png)
+
+---
+
+### 6️⃣ **getById.png** - Obtener pregunta por ID
+```http
+GET http://localhost:3005/api/preguntas/1
+```
+**Respuesta esperada:**
+```json
+{
+  "id": 1,
+  "tema": "javascript",
+  "subtema": "promesas y async/await",
+  "pregunta": "¿Qué devuelve una función async?",
+  "opciones": "[\"Una promesa\",\"Un callback\",\"Undefined\",\"Un observable\"]",
+  "correcta": "Una promesa",
+  "created_at": "2024-12-10 10:30:00"
+}
+```
+![Obtener pregunta por ID](public/img/getById.png)
+
+---
+
+### 7️⃣ **gettheme.png** - Obtener preguntas por tema
+```http
+GET http://localhost:3005/api/preguntas?tema=javascript
+```
+**Respuesta esperada:**
+```json
+[
+  {
+    "id": 1,
+    "tema": "javascript",
+    "subtema": "promesas",
+    "pregunta": "¿Qué devuelve una función async?",
+    "opciones": "[...]",
+    "correcta": "Una promesa"
+  },
+  {
+    "id": 2,
+    "tema": "javascript",
+    "subtema": "arrays",
+    "pregunta": "¿Qué hace el método map()?",
+    "opciones": "[...]",
+    "correcta": "Transforma cada elemento"
+  }
+]
+```
+![Obtener preguntas por tema](public/img/gettheme.png)
+
+---
+
+### 8️⃣ **health.png** - Health Check
+```http
+GET http://localhost:3005/api/health
+```
+**Respuesta esperada:**
+```json
+{
+  "status": "ok",
+  "ollama": "connected",
+  "timestamp": "2024-12-10T10:30:00.000Z"
+}
+```
+![Health Check](public/img/health.png)
+
+---
+
+### 9️⃣ **info.png** - Información general de la API
+```http
+GET http://localhost:3005/api/
+```
+**Respuesta esperada:**
+```json
+{
+  "nombre": "API Generador de Preguntas",
+  "version": "1.0.0",
+  "descripcion": "API para generar preguntas con IA usando Ollama",
+  "endpoints": [
+    "GET /api/health",
+    "GET /api/temas",
+    "POST /api/generate",
+    "GET /api/preguntas",
+    "DELETE /api/preguntas/:id"
+  ]
+}
+```
+![Información de la API](public/img/info.png)
+
+---
+
+### 🔟 **listThemes.png** - Lista de temas disponibles
+```http
+GET http://localhost:3005/api/temas
+```
+**Respuesta esperada:**
+```json
+[
+  {
+    "id": "javascript",
+    "nombre": "JavaScript Avanzado",
+    "descripcion": "ES6+, async/await, promesas, closures"
+  },
+  {
+    "id": "python",
+    "nombre": "Python Avanzado",
+    "descripcion": "Decoradores, generadores, comprehensions"
+  },
+  {
+    "id": "sql",
+    "nombre": "SQL",
+    "descripcion": "Consultas, joins, subconsultas, optimización"
+  }
+]
+```
+![Lista de temas](public/img/listThemes.png)
+
+---
+
+### 1️⃣1️⃣ **temaNoValido.png** - Error: Tema no válido
+```http
+POST http://localhost:3005/api/generate
+Content-Type: application/json
+
+{
+  "tema": "ruby",
+  "numPreguntas": 2
+}
+```
+**Respuesta esperada:**
+```json
+{
+  "success": false,
+  "error": "Tema no válido. Temas disponibles: javascript, python, sql, html_css",
+  "codigo": 400
+}
+```
+![Tema no válido](public/img/temaNoValido.png)
+
+---
+
+## 🎯 Validaciones Implementadas
+
+### ✅ Validaciones en `/api/generate`:
+- Tema es obligatorio
+- numPreguntas es obligatorio
+- numPreguntas debe ser un número entero
+- numPreguntas debe estar entre 1 y 5
+- El tema debe existir en la lista de temas disponibles
+
+### ✅ Validaciones en `/api/preguntas/:id`:
+- El ID debe existir en la base de datos
+- Retorna 404 si no se encuentra
+
+### ✅ Validaciones en `/api/preguntas?tema=X`:
+- El tema debe ser válido
+- Retorna array vacío si no hay preguntas
+
+---
+
+**🎉 Todas las validaciones funcionan correctamente según las capturas**
+
+
+
+
+

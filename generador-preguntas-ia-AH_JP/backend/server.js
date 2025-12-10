@@ -37,6 +37,7 @@ const ALLOWED_ORIGINS = [
 // ------------------------
 // Servir Frontend (antes de CORS para evitar bloqueos)
 // ------------------------
+
 const frontendPath = path.join(__dirname, '../frontend');
 console.log('📂 Sirviendo frontend desde:', frontendPath);
 app.use(express.static(frontendPath));
@@ -109,6 +110,8 @@ const server = app.listen(PORT, () => {
   console.log(`📡 Puerto: ${PORT}`);
   console.log(`🌍 Entorno: ${NODE_ENV}`);
   console.log(`🔗 URL API: http://localhost:${PORT}/api`);
+  console.log('='.repeat(60) + '\n');
+  console.log('🔗 URL Frontend: http://localhost:5173')
   console.log('='.repeat(60) + '\n');
 });
 
