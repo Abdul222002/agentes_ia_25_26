@@ -1,0 +1,38 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: generador-preguntas
+    ports:
+      - "3005:3005"
+    environment:
+      - NODE_ENV=production
+      - AI_ENV=home
+      - AI_API_URL_HOME=https://jarvis.ieshlanz.es
+      - AI_MODEL=mistral:instruct
+      - PORT=3005
+    networks:
+      - app-network
+    volumes:
+      - ./backend/db:/app/backend/db
+    restart: unless-stopped
+
+  # Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: generador-frontend
+    ports:
+      - "5173:80"
+    environment:
+      - PORT=80
+      - HOST=0.0.0.0
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
