@@ -586,42 +586,43 @@ app.listen(PORT, () => {
 
 ---
 
-## 3. Checklist de pruebas manuales 
+---
 
-- [x] Backend levanta sin errores
+## 3. Frontend
 
-![Backend levantado correctamente](public/img/backend-levanta.png)
+### 🖥️ `index.html` - Estructura Visual
 
-- [x] Ollama responde correctamente
-![Respuesta ollama](public/img/respuesta-ollama.png)
+Define la estructura semántica de la página, importando los estilos y scripts necesarios. Utiliza etiquetas HTML5 estándar como `<header>`, `<main>`, `<section>`.
 
-- [x] Frontend carga sin problemas
-![Respuesta frontend](public/img/respuesta-frontend.png)
+### 🎨 `style.css` - Estilos
 
-- [x] Selector de temas funciona
+Utiliza **Variables CSS** para mantener la consistencia en colores y espaciado.
+Cuenta con un diseño **Responsive** mediante media queries para adaptarse a dispositivos móviles.
 
-- [x] Generar preguntas (JavaScript, Seguridad, Normativa) funciona
+**Características principales**:
+- Diseño limpio y moderno.
+- Feedback visual de estados (loading, éxito, error).
+- Animaciones suaves en tarjetas y botones.
+- **Highlight de respuesta correcta**: Las respuestas correctas se marcan visualmente con un fondo verde suave y borde específico para fácil identificación.
 
-- [x] Preguntas se guardan en la base de datos
-![prueba bd](public/img/prueba-bd.jpeg)
+### 🧠 `main.js` - Lógica de Usuario
 
-- [x] Preguntas se muestran en el frontend
-![pregunta generada](public/img/pregunta-generada.png)
+Maneja toda la interacción del usuario y la comunicación con el Backend.
 
-- [x] Eliminar pregunta funciona
+**Funciones clave**:
 
+1. **`cargarTemas()`**: Obtiene la lista de temas desde `/api/temas` al cargar la página.
+2. **`generarPreguntas()`**:
+   - Valida la entrada del usuario (1-5 preguntas).
+   - Envía POST a `/api/generate`.
+   - Maneja estados de carga (spinner).
+3. **`mostrarPreguntas()`**: Renderiza las tarjetas de preguntas en el DOM.
+4. **`generarOpcionesHTML(opciones, correcta)`**:
+   - Genera la lista `<ul>` de opciones.
+   - **Lógica Inteligente**: Compara el índice o el valor de la respuesta correcta normalizada para añadir la clase `.correct` al `<li>` correspondiente, asegurando que el usuario siempre vea cuál es la respuesta acertada.
+5. **`eliminarPregunta(id)`**: Permite borrar preguntas individuales de la interfaz y base de datos.
 
-- [x] Limpiar tema funciona
-
-
-- [x] Validaciones bloquean datos incorrectos
-
-
-- [x] Mensajes de error claros si Ollama no responde
-
-
-- [x] Indicador de carga visible y funcional
-
+---
 
 ## 4. Validaciones
 
@@ -1437,6 +1438,43 @@ Uncaught SyntaxError: Cannot use import statement outside a module
 </body>
 </html>
 ```
+
+---
+## 5. Checklist de pruebas manuales 
+
+- [x] Backend levanta sin errores
+
+![Backend levantado correctamente](public/img/backend-levanta.png)
+
+- [x] Ollama responde correctamente
+![Respuesta ollama](public/img/respuesta-ollama.png)
+
+- [x] Frontend carga sin problemas
+![Respuesta frontend](public/img/respuesta-frontend.png)
+
+- [x] Selector de temas funciona
+
+- [x] Generar preguntas (JavaScript, Seguridad, Normativa) funciona
+
+- [x] Preguntas se guardan en la base de datos
+![prueba bd](public/img/prueba-bd.jpeg)
+
+- [x] Preguntas se muestran en el frontend
+![pregunta generada](public/img/pregunta-generada.png)
+
+- [x] Eliminar pregunta funciona
+
+
+- [x] Limpiar tema funciona
+
+
+- [x] Validaciones bloquean datos incorrectos
+
+
+- [x] Mensajes de error claros si Ollama no responde
+
+
+- [x] Indicador de carga visible y funcional
 
 ---
 

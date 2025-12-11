@@ -141,18 +141,18 @@
 
 ## 📖 Parte 6: Documentación (README.md) (Juan y Abdul)
 
-- [ ] Incluir descripción general y propósito del proyecto  
-- [ ] Listar requisitos (Node.js, Docker, Ollama, etc.)  
-- [ ] Explicar instalación local y con Docker  
-- [ ] Explicar estructura de carpetas  
-- [ ] Documentar endpoints de la API  
-- [ ] Añadir ideas de futuras extensiones  
+- [x] Incluir descripción general y propósito del proyecto  
+- [x] Listar requisitos (Node.js, Docker, Ollama, etc.)  
+- [x] Explicar instalación local y con Docker  
+- [x] Explicar estructura de carpetas  
+- [x] Documentar endpoints de la API  
+- [x] Añadir ideas de futuras extensiones  
 
 ---
 
 ## 🌿 Parte 7: Git y Control de Versiones (Juan y Abdul) 
 
-- [ ] Hacer commits incrementales y descriptivos  
-- [ ] Usar mensajes de commit claros y coherentes  
-- [ ] Mantener un flujo de trabajo limpio  
-- [ ] Crear Pull Request con resumen y división de tareas 
+- [x] Hacer commits incrementales y descriptivos  
+- [x] Usar mensajes de commit claros y coherentes  
+- [x] Mantener un flujo de trabajo limpio  
+- [x] Crear Pull Request con resumen y división de tareas 
