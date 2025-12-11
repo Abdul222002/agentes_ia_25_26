@@ -1506,4 +1506,96 @@ Uncaught SyntaxError: Cannot use import statement outside a module
 
 ---
 
-**🎉 Todos los problemas fueron resueltos y documentados para futuras referencias**
+## 🐳 Despliegue con Docker
+
+### Prerrequisitos
+
+- Docker instalado ([Descargar Docker](https://www.docker.com/get-started))
+- Docker Compose (incluido con Docker Desktop)
+- Ollama corriendo en tu máquina o servidor remoto
+
+### 📦 Construcción y Ejecución
+
+#### 1. Configurar variables de entorno
+
+Asegúrate de que el archivo `docker-compose.yml` tenga las variables correctas:
+
+```yaml
+environment:
+  - AI_ENV=home
+  - AI_API_URL_HOME=https://jarvis.ieshlanz.es  # O tu URL de Ollama
+  - AI_MODEL=mistral:instruct
+```
+
+#### 2. Construir y levantar los contenedores
+
+```bash
+# Construir las imágenes y levantar los servicios
+docker-compose up -d --build
+```
+
+#### 3. Verificar que los contenedores estén corriendo
+
+```bash
+docker-compose ps
+```
+
+Deberías ver:
+
+- `generador-preguntas` (backend) en puerto `3005`
+- `generador-frontend` (frontend) en puerto `5173`
+
+#### 4. Acceder a la aplicación
+
+- **Frontend**: [http://localhost:5173](http://localhost:5173)
+- **Backend API**: [http://localhost:3005/api](http://localhost:3005/api)
+- **Health Check**: [http://localhost:3005/api/health](http://localhost:3005/api/health)
+
+### 🔧 Comandos Útiles
+
+```bash
+# Ver logs en tiempo real
+docker-compose logs -f
+
+# Ver logs solo del backend
+docker-compose logs -f app
+
+# Ver logs solo del frontend
+docker-compose logs -f frontend
+
+# Detener los contenedores
+docker-compose down
+
+# Detener y eliminar volúmenes (base de datos)
+docker-compose down -v
+
+# Reconstruir solo un servicio
+docker-compose up -d --build app
+```
+
+### 📁 Persistencia de Datos
+
+La base de datos SQLite se guarda en un volumen Docker:
+
+```yaml
+volumes:
+  - ./backend/db:/app/backend/db
+```
+
+Esto asegura que las preguntas generadas persistan entre reinicios del contenedor.
+
+### ⚠️ Troubleshooting
+
+**Si Ollama no conecta:**
+
+- Verifica que la URL en `docker-compose.yml` sea correcta
+- Asegúrate de que Ollama esté accesible desde el contenedor
+- Revisa los logs: `docker-compose logs -f app`
+
+**Si el frontend no carga:**
+
+- Verifica que el puerto 5173 no esté en uso
+- Revisa los logs del frontend: `docker-compose logs -f frontend`
+
+---
+
