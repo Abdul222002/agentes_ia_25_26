@@ -130,7 +130,7 @@
 ## 🐳 Parte 5: Dockerización (Juan y Abdul)
 
 ### 🐋 5.1 docker-compose.yml
-- [X] Crear archivo para orquestar servicios  
+- [x] Crear archivo para orquestar servicios  
 
 ### 🚀 5.2 Levantar con Docker Compose
 - [X] Ejecutar comando para construir y levantar  

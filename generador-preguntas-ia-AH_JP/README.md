@@ -586,6 +586,43 @@ app.listen(PORT, () => {
 
 ---
 
+## 3. Checklist de pruebas manuales 
+
+- [x] Backend levanta sin errores
+
+![Backend levantado correctamente](public/img/backend-levanta.png)
+
+- [x] Ollama responde correctamente
+![Respuesta ollama](public/img/respuesta-ollama.png)
+
+- [x] Frontend carga sin problemas
+![Respuesta frontend](public/img/respuesta-frontend.png)
+
+- [x] Selector de temas funciona
+
+- [x] Generar preguntas (JavaScript, Seguridad, Normativa) funciona
+
+- [x] Preguntas se guardan en la base de datos
+![prueba bd](public/img/prueba-bd.jpeg)
+
+- [x] Preguntas se muestran en el frontend
+![pregunta generada](public/img/pregunta-generada.png)
+
+- [x] Eliminar pregunta funciona
+
+
+- [x] Limpiar tema funciona
+
+
+- [x] Validaciones bloquean datos incorrectos
+
+
+- [x] Mensajes de error claros si Ollama no responde
+
+
+- [x] Indicador de carga visible y funcional
+
+
 ## 4. Validaciones
 
 ### 4.1📸 Capturas de Pantalla - Validación de la API

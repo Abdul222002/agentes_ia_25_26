@@ -50,10 +50,10 @@ async function generarPreguntas() {
   const num = parseInt(inputNum.value);
 
   // Validaciones
-  if (!tema){
+  if (!tema) {
     return mostrarError("Selecciona un tema para continuar.")
   };
-  if (isNaN(num) || num < 1 || num > 5){
+  if (isNaN(num) || num < 1 || num > 5) {
     return mostrarError("El número de preguntas debe estar entre 1 y 5.");
   }
   mostrarEstado(1);
@@ -104,7 +104,7 @@ function mostrarPreguntas(preguntas = []) {
 
     card.innerHTML = `
       <h3>${p.pregunta}</h3>
-      ${p.opciones ? generarOpcionesHTML(p.opciones) : ""}
+      ${p.opciones ? generarOpcionesHTML(p.opciones, p.correcta) : ""}
       <button class="eliminar-btn" data-id="${p.id}">Eliminar</button>
     `;
 
@@ -118,10 +118,58 @@ function mostrarPreguntas(preguntas = []) {
 }
 
 // Helper para opciones
-function generarOpcionesHTML(opciones) {
+function generarOpcionesHTML(opciones, correcta) {
+  if (!Array.isArray(opciones)) return "<ul><li>Opciones no disponibles</li></ul>";
+
+  console.log("Rendering options:", opciones);
+  console.log("Correct answer raw:", correcta);
+
   return `
     <ul>
-      ${Array.isArray(opciones) ? opciones.map(o => `<li>${o}</li>`).join("") : "<li>Opciones no disponibles</li>"}
+      ${opciones.map((o, index) => {
+    let isCorrect = false;
+
+    const strO = String(o).trim();
+    const strC = String(correcta).trim();
+
+    // 1. Coincidencia exacta (insensible a mayúsculas/espacios)
+    if (strO.toLowerCase() === strC.toLowerCase()) {
+      isCorrect = true;
+    }
+
+    // 2. Coincidencia por índice numérico (0, 1, 2, 3)
+    if (!isCorrect && (strC == String(index))) {
+      isCorrect = true;
+    }
+
+    // 3. Coincidencia por letra simple (a, b, c, d)
+    if (!isCorrect && strC.length === 1 && /^[a-d]$/i.test(strC)) {
+      const letterIndex = strC.toLowerCase().charCodeAt(0) - 97; // 'a' -> 0
+      if (letterIndex === index) {
+        isCorrect = true;
+      }
+    }
+
+    // 4. Coincidencia por prefijo en la respuesta correcta (e.g., "a) Respuesta", "1. Respuesta")
+    if (!isCorrect) {
+      // Buscar patrón letra o número al inicio de 'correcta'
+      const matchLetter = strC.match(/^([a-d])[\.\)]/i);
+      if (matchLetter) {
+        const letterIndex = matchLetter[1].toLowerCase().charCodeAt(0) - 97;
+        if (letterIndex === index) isCorrect = true;
+      }
+
+      const matchNumber = strC.match(/^(\d+)[\.\)]/);
+      if (matchNumber) {
+        // Asumimos que si pone "1." se refiere al índice 0, "2." al índice 1...
+        // O si es 0-indexed? Usualmente en listas es 1-based.
+        const numIndex = parseInt(matchNumber[1]) - 1;
+        if (numIndex === index) isCorrect = true;
+      }
+    }
+
+    return `<li${isCorrect ? ' class="correct"' : ''}>${o}</li>`;
+  }).join("")}
     </ul>
   `;
 }
@@ -252,9 +300,9 @@ btnGenerar.addEventListener("click", generarPreguntas);
 btnLimpiar.addEventListener("click", limpiar);
 inputNum.addEventListener("input", () => {
   const n = parseInt(inputNum.value);
-  if (n < 1 || n > 5){
+  if (n < 1 || n > 5) {
     inputNum.setCustomValidity("Debe ser entre 1 y 5");
-  }else{
+  } else {
     inputNum.setCustomValidity("")
   };
 });
